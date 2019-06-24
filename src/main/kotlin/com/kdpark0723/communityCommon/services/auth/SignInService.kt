@@ -18,10 +18,10 @@ class SignInService(private var userDAO: UserDAO) {
     private var factory: ValidatorFactory = Validation.buildDefaultValidatorFactory()
     private var validator = factory.validator
 
-    private final val valididentifier = "validId@community.com"
+    private final val validIdentifier = "validId@community.com"
     private final val validHashedPassword = "1a27b6b03d41de5ff0f30c136d14d8b59c079ea54b1d9b41fd4c2c0178a7f259"
 
-    val validUser: User = createUser(valididentifier, validHashedPassword, valididentifier, valididentifier)
+    val validUser: User = createUser(validIdentifier, validHashedPassword, validIdentifier, validIdentifier)
 
     fun checkValue(element: SignInElement) {
         val checkedUser: User = getCanInvalidUser(element)
