@@ -1,4 +1,4 @@
-package com.kdpark0723.communityCommon.controller.auth
+package com.kdpark0723.communityCommon.controllers.auth
 
 import com.kdpark0723.communityCommon.exceptions.UserAlreadySignedException
 import com.kdpark0723.communityCommon.models.user.SignInRespoense
