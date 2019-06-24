@@ -14,7 +14,6 @@ import javax.validation.ValidatorFactory
 
 @Component
 class SignInService(private var userDAO: UserDAO) {
-
     private var factory: ValidatorFactory = Validation.buildDefaultValidatorFactory()
     private var validator = factory.validator
 
