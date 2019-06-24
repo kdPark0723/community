@@ -3,13 +3,7 @@ package com.kdpark0723.communityCommon.models.user.dto
 import com.kdpark0723.communityCommon.models.user.User
 
 class PublicUserInformation(user: User) {
-    var identifier: String? = null
-    var nickname: String? = null
-    var email: String? = null
-
-    init {
-        identifier = user.identifier
-        nickname = user.nickname
-        email = user.email
-    }
+    val identifier: String? = user.identifier
+    val nickname: String? = user.nickname
+    val email: String? = user.email
 }
