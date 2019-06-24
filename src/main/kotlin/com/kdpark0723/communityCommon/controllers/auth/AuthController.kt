@@ -1,9 +1,9 @@
 package com.kdpark0723.communityCommon.controllers.auth
 
 import com.kdpark0723.communityCommon.exceptions.UserAlreadySignedException
-import com.kdpark0723.communityCommon.models.user.SignInRespoense
 import com.kdpark0723.communityCommon.models.user.UserRepository
-import com.kdpark0723.communityCommon.models.user.dto.SignInDTO
+import com.kdpark0723.communityCommon.models.user.dto.SignInData
+import com.kdpark0723.communityCommon.models.user.dto.SignInRespoense
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
+import javax.validation.Valid
 
 @Controller
 @RequestMapping(path = ["/auth"])
@@ -21,8 +22,8 @@ class AuthController {
 
     @RequestMapping(value = ["/signin"], method = [RequestMethod.POST])
     @ResponseBody
-    fun signIn(@RequestBody signInData: SignInDTO): ResponseEntity<SignInRespoense> {
-        val user = signInData.getUser()
+    fun signIn(@Valid @RequestBody signInUser: SignInData): ResponseEntity<SignInRespoense> {
+        val user = signInUser.toUser()
 
         if (userRepository!!.findById(user.identifier!!).isPresent)
             throw UserAlreadySignedException()

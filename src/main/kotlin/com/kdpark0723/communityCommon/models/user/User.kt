@@ -9,13 +9,15 @@ import javax.validation.constraints.Size
 @Table(name = "users")
 class User {
     @Id
-    @Size(max = 25)
+    @Size(max = 50)
     var identifier: String? = null
-    @Size(max = 100)
+
+    @Size(max = 200)
     var hashedPassword: String? = null
 
-    @Size(max = 25)
+    @Size(max = 50)
     var nickname: String? = null
-    @Size(max = 25)
+
+    @Size(max = 50)
     var email: String? = null
 }

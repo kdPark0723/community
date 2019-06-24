@@ -1,4 +1,6 @@
-package com.kdpark0723.communityCommon.models.user
+package com.kdpark0723.communityCommon.models.user.dto
+
+import com.kdpark0723.communityCommon.models.user.User
 
 class PublicUserInformation(user: User) {
     var identifier: String? = null
