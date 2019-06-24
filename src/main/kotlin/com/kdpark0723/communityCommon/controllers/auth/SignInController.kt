@@ -1,8 +1,8 @@
 package com.kdpark0723.communityCommon.controllers.auth
 
 import com.kdpark0723.communityCommon.models.Response
+import com.kdpark0723.communityCommon.models.user.dao.SpringUserDAOAdapter
 import com.kdpark0723.communityCommon.models.user.dao.UserDAO
-import com.kdpark0723.communityCommon.models.user.dao.UserDAOAdapter
 import com.kdpark0723.communityCommon.models.user.dto.SignInData
 import com.kdpark0723.communityCommon.models.user.dto.SignInElement
 import com.kdpark0723.communityCommon.models.user.dto.SignInResponse
@@ -21,7 +21,7 @@ import javax.validation.Valid
 @RequestMapping(path = ["/auth/signin"])
 class SignInController {
     @Autowired
-    private val userDAO: UserDAO = UserDAOAdapter()
+    private val userDAO: UserDAO = SpringUserDAOAdapter()
     @Autowired
     private val signInService: SignInService = SignInService(userDAO)
 

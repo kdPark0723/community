@@ -33,30 +33,22 @@ class SignInService(private var userDAO: UserDAO) {
     }
 
     private fun getCanInvalidUser(element: SignInElement): User {
-        val checkedUser: User
-
-        when (element.type) {
-            "identifier" -> {
-                checkedUser = validUser.copy(identifier = element.value)
-            }
-            "hashed_password" -> {
-                checkedUser = validUser.copy(hashedPassword = element.value)
-            }
-            "nickname" -> {
-                checkedUser = validUser.copy(nickname = element.value)
-            }
-            "email" -> {
-                checkedUser = validUser.copy(email = element.value)
-            }
-            else -> {
+        return when (element.type) {
+            "identifier" ->
+                validUser.copy(identifier = element.value)
+            "hashed_password" ->
+                validUser.copy(hashedPassword = element.value)
+            "nickname" ->
+                validUser.copy(nickname = element.value)
+            "email" ->
+                validUser.copy(email = element.value)
+            else ->
                 throw UndefinedElementTypeException()
-            }
         }
-        return checkedUser
     }
 
     fun signIn(user: User): SignInResponse {
-        if (userDAO.findById(user.identifier) != null)
+        if (userDAO.exists(user.identifier))
             throw UserAlreadySignedException()
 
         userDAO.save(user)

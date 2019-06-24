@@ -1,6 +1,13 @@
 package com.kdpark0723.communityCommon.models.user.dto
 
 class SignInElement {
+    enum class Type(val str: String) {
+        IDENTIFIER("identifier"),
+        HASHED_PASSWORD("hashed_password"),
+        NICKNAME("nickname"),
+        EMAIL("email");
+    }
+
     var value: String = ""
     var type: String = ""
 }

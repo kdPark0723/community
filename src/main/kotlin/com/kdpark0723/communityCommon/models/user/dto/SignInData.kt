@@ -6,17 +6,26 @@ import org.springframework.validation.annotation.Validated
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
+import javax.validation.constraints.Size
 
 @Validated
 class SignInData {
-    @Email
-    final var email: String = ""
+    @Size(max = 50)
+    final var identifier: String = ""
 
     @NotNull
     @NotBlank
+    @Size(max = 200)
     final var hashedPassword: String = ""
 
+    @Email
+    @Size(max = 50)
+    final var email: String = ""
+
+    @Size(max = 50)
+    var nickname: String = ""
+
     fun toUser(): User {
-        return createUser(email, hashedPassword, email, email)
+        return createUser(identifier, hashedPassword, email, nickname)
     }
 }

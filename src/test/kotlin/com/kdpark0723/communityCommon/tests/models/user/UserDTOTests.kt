@@ -1,6 +1,7 @@
 package com.kdpark0723.communityCommon.tests.models.user
 
 import com.kdpark0723.communityCommon.models.user.UserModelFactory
+import com.kdpark0723.communityCommon.models.user.dto.SignInResponse
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,6 +24,17 @@ class UserDTOTests {
         Assert.assertEquals(toUser.identifier, user.identifier)
         Assert.assertEquals(toUser.email, user.email)
         Assert.assertEquals(toUser.nickname, user.nickname)
+    }
+
+    @Test
+    fun convertToSignInResponse() {
+        val user = factory.createDummyUser()
+        val response = SignInResponse(user)
+
+        Assert.assertEquals(response.message, "Success: You are signed in.")
+        Assert.assertEquals(response.user.identifier, user.identifier)
+        Assert.assertEquals(response.user.email, user.email)
+        Assert.assertEquals(response.user.nickname, user.nickname)
     }
 
 }

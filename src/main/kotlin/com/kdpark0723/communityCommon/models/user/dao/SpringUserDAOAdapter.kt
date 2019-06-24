@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class UserDAOAdapter : UserDAO {
+class SpringUserDAOAdapter : UserDAO {
     @Autowired
     private val userRepository: UserRepository? = null
 
@@ -18,7 +18,15 @@ class UserDAOAdapter : UserDAO {
     }
 
     override fun findById(id: String): User? {
-        return userRepository!!.findById(id).get()
+        val user = userRepository!!.findById(id)
+
+        if (user.isPresent)
+            return user.get()
+        return null
+    }
+
+    override fun exists(id: String): Boolean {
+        return userRepository!!.existsById(id)
     }
 
 }

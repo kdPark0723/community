@@ -24,9 +24,17 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
+    compile("org.springframework.boot:spring-boot-starter-security")
+
     compile("mysql:mysql-connector-java")
+
     compile("io.springfox:springfox-swagger2:2.9.2")
     compile("io.springfox:springfox-swagger-ui:2.9.2")
+
+    compile("io.jsonwebtoken:jjwt-api:0.10.5")
+
+    runtime("io.jsonwebtoken:jjwt-impl:0.10.5")
+    runtime("io.jsonwebtoken:jjwt-jackson:0.10.5")
 
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
