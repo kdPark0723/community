@@ -4,7 +4,7 @@ class SignInElement {
     enum class Type(val str: String) {
         IDENTIFIER("identifier"),
         HASHED_PASSWORD("hashed_password"),
-        NICKNAME("nickname"),
+        USERNAME("username"),
         EMAIL("email");
     }
 

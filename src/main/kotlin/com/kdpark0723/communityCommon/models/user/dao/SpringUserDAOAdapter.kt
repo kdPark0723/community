@@ -7,18 +7,18 @@ import org.springframework.stereotype.Component
 @Component
 class SpringUserDAOAdapter : UserDAO {
     @Autowired
-    private val userRepository: UserRepository? = null
+    private val repository: UserRepository? = null
 
     override fun delete(entity: User) {
-        userRepository!!.delete(entity)
+        repository!!.delete(entity)
     }
 
     override fun save(entity: User) {
-        userRepository!!.save(entity)
+        repository!!.save(entity)
     }
 
     override fun findById(id: String): User? {
-        val user = userRepository!!.findById(id)
+        val user = repository!!.findById(id)
 
         if (user.isPresent)
             return user.get()
@@ -26,7 +26,7 @@ class SpringUserDAOAdapter : UserDAO {
     }
 
     override fun exists(id: String): Boolean {
-        return userRepository!!.existsById(id)
+        return repository!!.existsById(id)
     }
 
 }

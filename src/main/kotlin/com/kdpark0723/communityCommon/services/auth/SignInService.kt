@@ -7,7 +7,7 @@ import com.kdpark0723.communityCommon.models.user.User
 import com.kdpark0723.communityCommon.models.user.createUser
 import com.kdpark0723.communityCommon.models.user.dao.UserDAO
 import com.kdpark0723.communityCommon.models.user.dto.SignInElement
-import com.kdpark0723.communityCommon.models.user.dto.SignInResponse
+import com.kdpark0723.communityCommon.models.user.dto.SignInResponseForm
 import org.springframework.stereotype.Component
 import javax.validation.Validation
 import javax.validation.ValidatorFactory
@@ -23,7 +23,7 @@ class SignInService(private var userDAO: UserDAO) {
 
     val validUser: User = createUser(validIdentifier, validHashedPassword, validIdentifier, validIdentifier)
 
-    fun checkValue(element: SignInElement) {
+    fun checkValid(element: SignInElement) {
         val checkedUser: User = getCanInvalidUser(element)
 
         val violations = validator.validate(checkedUser)
@@ -34,25 +34,25 @@ class SignInService(private var userDAO: UserDAO) {
 
     private fun getCanInvalidUser(element: SignInElement): User {
         return when (element.type) {
-            "identifier" ->
+            SignInElement.Type.IDENTIFIER.str ->
                 validUser.copy(identifier = element.value)
-            "hashed_password" ->
+            SignInElement.Type.HASHED_PASSWORD.str ->
                 validUser.copy(hashedPassword = element.value)
-            "nickname" ->
-                validUser.copy(nickname = element.value)
-            "email" ->
+            SignInElement.Type.USERNAME.str ->
+                validUser.copy(username = element.value)
+            SignInElement.Type.EMAIL.str ->
                 validUser.copy(email = element.value)
             else ->
                 throw UndefinedElementTypeException()
         }
     }
 
-    fun signIn(user: User): SignInResponse {
+    fun signIn(user: User): SignInResponseForm {
         if (userDAO.exists(user.identifier))
             throw UserAlreadySignedException()
 
         userDAO.save(user)
 
-        return SignInResponse(user)
+        return SignInResponseForm(user)
     }
 }

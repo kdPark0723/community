@@ -1,11 +1,11 @@
 package com.kdpark0723.communityCommon.controllers.auth
 
-import com.kdpark0723.communityCommon.models.Response
+import com.kdpark0723.communityCommon.models.ResponseForm
 import com.kdpark0723.communityCommon.models.user.dao.SpringUserDAOAdapter
 import com.kdpark0723.communityCommon.models.user.dao.UserDAO
-import com.kdpark0723.communityCommon.models.user.dto.SignInData
 import com.kdpark0723.communityCommon.models.user.dto.SignInElement
-import com.kdpark0723.communityCommon.models.user.dto.SignInResponse
+import com.kdpark0723.communityCommon.models.user.dto.SignInResponseForm
+import com.kdpark0723.communityCommon.models.user.dto.SignInUser
 import com.kdpark0723.communityCommon.services.auth.SignInService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -27,15 +27,15 @@ class SignInController {
 
     @RequestMapping(value = ["/check"], method = [RequestMethod.POST])
     @ResponseBody
-    fun checkElement(@RequestBody element: SignInElement): ResponseEntity<Response> {
-        signInService.checkValue(element)
+    fun checkElementValid(@RequestBody element: SignInElement): ResponseEntity<ResponseForm> {
+        signInService.checkValid(element)
 
-        return ResponseEntity(Response("Valid"), HttpStatus.OK)
+        return ResponseEntity(ResponseForm("Valid"), HttpStatus.OK)
     }
 
     @RequestMapping(value = [""], method = [RequestMethod.POST])
     @ResponseBody
-    fun signIn(@Valid @RequestBody signedDate: SignInData): ResponseEntity<SignInResponse> {
+    fun signIn(@Valid @RequestBody signedDate: SignInUser): ResponseEntity<SignInResponseForm> {
         val signInResponse = signInService.signIn(signedDate.toUser())
 
         return ResponseEntity(signInResponse, HttpStatus.CREATED)

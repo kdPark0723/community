@@ -3,7 +3,7 @@ package com.kdpark0723.communityCommon.tests.services.auth
 import com.kdpark0723.communityCommon.exceptions.InvalidElementException
 import com.kdpark0723.communityCommon.exceptions.UndefinedElementTypeException
 import com.kdpark0723.communityCommon.exceptions.UserAlreadySignedException
-import com.kdpark0723.communityCommon.models.user.SimpleUserDAOAdapter
+import com.kdpark0723.communityCommon.models.user.MockUserDAO
 import com.kdpark0723.communityCommon.models.user.UserModelFactory
 import com.kdpark0723.communityCommon.models.user.dao.UserDAO
 import com.kdpark0723.communityCommon.models.user.dto.SignInElement
@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner
 @RunWith(SpringRunner::class)
 @SpringBootTest
 class SignInServiceTests {
-    private val userDAO: UserDAO = SimpleUserDAOAdapter()
+    private val userDAO: UserDAO = MockUserDAO()
     private val signInService: SignInService = SignInService(userDAO)
     private val factory = UserModelFactory()
 
@@ -29,12 +29,12 @@ class SignInServiceTests {
         val identifierElement = createSignInElement(user.identifier, SignInElement.Type.IDENTIFIER.str)
         val emailElement = createSignInElement(user.email, SignInElement.Type.EMAIL.str)
         val hashedPasswordElement = createSignInElement(user.hashedPassword, SignInElement.Type.HASHED_PASSWORD.str)
-        val nicknameElement = createSignInElement(user.nickname, SignInElement.Type.NICKNAME.str)
+        val nicknameElement = createSignInElement(user.username, SignInElement.Type.USERNAME.str)
 
-        signInService.checkValue(identifierElement)
-        signInService.checkValue(emailElement)
-        signInService.checkValue(hashedPasswordElement)
-        signInService.checkValue(nicknameElement)
+        signInService.checkValid(identifierElement)
+        signInService.checkValid(emailElement)
+        signInService.checkValid(hashedPasswordElement)
+        signInService.checkValid(nicknameElement)
     }
 
     @Test(expected = UndefinedElementTypeException::class)
@@ -43,16 +43,15 @@ class SignInServiceTests {
 
         val undefinedElement = createSignInElement(user.identifier, "undefined")
 
-        signInService.checkValue(undefinedElement)
+        signInService.checkValid(undefinedElement)
     }
 
     @Test(expected = InvalidElementException::class)
     fun checkInvalidEmailElement() {
         val emailElement = createSignInElement("invalidEmail", SignInElement.Type.EMAIL.str)
 
-        signInService.checkValue(emailElement)
+        signInService.checkValid(emailElement)
     }
-
 
     @Test
     fun checkSignIn() {
@@ -60,7 +59,7 @@ class SignInServiceTests {
 
         signInService.signIn(user)
 
-        Assert.assertEquals(user, userDAO.findById(user.identifier))
+        Assert.assertTrue(userDAO.exists(user.identifier))
         userDAO.delete(user)
     }
 
@@ -68,10 +67,13 @@ class SignInServiceTests {
     fun checkSignInUserAlreadySigned() {
         val user = factory.createDummyUser()
 
-        signInService.signIn(user)
-        signInService.signIn(user)
-
-        Assert.assertEquals(user, userDAO.findById(user.identifier))
-        userDAO.delete(user)
+        try {
+            signInService.signIn(user)
+            signInService.signIn(user)
+        } catch (e: Exception) {
+            throw e
+        } finally {
+            userDAO.delete(user)
+        }
     }
 }

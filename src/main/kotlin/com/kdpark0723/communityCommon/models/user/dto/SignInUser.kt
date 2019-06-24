@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
 @Validated
-class SignInData {
+class SignInUser {
     @Size(max = 50)
     final var identifier: String = ""
 
@@ -23,9 +23,9 @@ class SignInData {
     final var email: String = ""
 
     @Size(max = 50)
-    var nickname: String = ""
+    var username: String = ""
 
     fun toUser(): User {
-        return createUser(identifier, hashedPassword, email, nickname)
+        return createUser(identifier, hashedPassword, email, username)
     }
 }
