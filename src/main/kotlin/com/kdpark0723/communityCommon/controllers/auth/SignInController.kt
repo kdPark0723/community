@@ -28,16 +28,33 @@ class SignInController {
     @RequestMapping(value = ["/check"], method = [RequestMethod.POST])
     @ResponseBody
     fun checkElementValid(@RequestBody element: SignInElement): ResponseEntity<ResponseForm> {
+        try {
+            return checkElementValidUncheckException(element)
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    fun checkElementValidUncheckException(element: SignInElement): ResponseEntity<ResponseForm> {
         signInService.checkValid(element)
 
-        return ResponseEntity(ResponseForm("Valid"), HttpStatus.OK)
+        return ResponseEntity(ResponseForm("This value is valid"), HttpStatus.OK)
     }
 
     @RequestMapping(value = [""], method = [RequestMethod.POST])
     @ResponseBody
-    fun signIn(@Valid @RequestBody signedDate: SignInUser): ResponseEntity<SignInResponseForm> {
-        val signInResponse = signInService.signIn(signedDate.toUser())
+    fun signIn(@Valid @RequestBody signInUserData: SignInUser): ResponseEntity<SignInResponseForm> {
+        try {
+            return signInUncheckException(signInUserData)
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    fun signInUncheckException(signInUserData: SignInUser): ResponseEntity<SignInResponseForm> {
+        val signInResponse = signInService.signIn(signInUserData.toUser())
 
         return ResponseEntity(signInResponse, HttpStatus.CREATED)
     }
+
 }
