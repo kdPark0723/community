@@ -8,16 +8,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @EnableWebSecurity
 class SecurityConfig : WebSecurityConfigurerAdapter() {
-
     @Throws(Exception::class)
     override fun configure(web: WebSecurity) {
-        web.ignoring().antMatchers(HttpMethod.POST, "/auth/signin/**")
+        web.ignoring().antMatchers(HttpMethod.POST, "/auth/sign_up/**")
     }
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
-            .antMatchers("/admin/**").hasRole("ADMIN")
             .antMatchers("/**").permitAll()
     }
 }

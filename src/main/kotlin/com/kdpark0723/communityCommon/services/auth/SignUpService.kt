@@ -6,14 +6,14 @@ import com.kdpark0723.communityCommon.exceptions.UserAlreadySignedException
 import com.kdpark0723.communityCommon.models.user.User
 import com.kdpark0723.communityCommon.models.user.createUser
 import com.kdpark0723.communityCommon.models.user.dao.UserDAO
-import com.kdpark0723.communityCommon.models.user.dto.SignInElement
-import com.kdpark0723.communityCommon.models.user.dto.SignInResponseForm
+import com.kdpark0723.communityCommon.models.user.dto.SignUpElement
+import com.kdpark0723.communityCommon.models.user.dto.SignUpResponseForm
 import org.springframework.stereotype.Component
 import javax.validation.Validation
 import javax.validation.ValidatorFactory
 
 @Component
-class SignInService(private var userDAO: UserDAO) {
+class SignUpService(private var userDAO: UserDAO) {
     private var factory: ValidatorFactory = Validation.buildDefaultValidatorFactory()
     private var validator = factory.validator
 
@@ -22,7 +22,7 @@ class SignInService(private var userDAO: UserDAO) {
 
     val validUser: User = createUser(validIdentifier, validHashedPassword, validIdentifier, validIdentifier)
 
-    fun checkValid(element: SignInElement) {
+    fun checkValid(element: SignUpElement) {
         val checkedUser: User = getCanInvalidUser(element)
 
         val violations = validator.validate(checkedUser)
@@ -31,27 +31,27 @@ class SignInService(private var userDAO: UserDAO) {
         }
     }
 
-    private fun getCanInvalidUser(element: SignInElement): User {
+    private fun getCanInvalidUser(element: SignUpElement): User {
         return when (element.type) {
-            SignInElement.Type.IDENTIFIER.str ->
+            SignUpElement.Type.IDENTIFIER.str ->
                 validUser.copy(identifier = element.value)
-            SignInElement.Type.HASHED_PASSWORD.str ->
+            SignUpElement.Type.HASHED_PASSWORD.str ->
                 validUser.copy(hashedPassword = element.value)
-            SignInElement.Type.USERNAME.str ->
+            SignUpElement.Type.USERNAME.str ->
                 validUser.copy(username = element.value)
-            SignInElement.Type.EMAIL.str ->
+            SignUpElement.Type.EMAIL.str ->
                 validUser.copy(email = element.value)
             else ->
                 throw UndefinedElementTypeException()
         }
     }
 
-    fun signIn(user: User): SignInResponseForm {
+    fun signUp(user: User): SignUpResponseForm {
         if (userDAO.exists(user.identifier))
             throw UserAlreadySignedException()
 
         userDAO.save(user)
 
-        return SignInResponseForm(user)
+        return SignUpResponseForm(user)
     }
 }

@@ -17,6 +17,6 @@ class SpringRoleDAOAdapter : RoleDAO, SpringDAOAdapter<Role, Long, RoleRepositor
     override fun findByName(name: Role.Name): Role? {
         val role = registeredRepository?.findByName(name)
 
-        return unOptional(role)
+        return convertNullable(role)
     }
 }

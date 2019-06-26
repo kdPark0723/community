@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
 @Validated
-class SignInUser {
+class SignUpUser {
     @Size(max = 50)
     final var identifier: String = ""
 

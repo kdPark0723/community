@@ -3,10 +3,10 @@ package com.kdpark0723.communityCommon.controllers.auth
 import com.kdpark0723.communityCommon.models.ResponseForm
 import com.kdpark0723.communityCommon.models.user.dao.SpringUserDAOAdapter
 import com.kdpark0723.communityCommon.models.user.dao.UserDAO
-import com.kdpark0723.communityCommon.models.user.dto.SignInElement
-import com.kdpark0723.communityCommon.models.user.dto.SignInResponseForm
-import com.kdpark0723.communityCommon.models.user.dto.SignInUser
-import com.kdpark0723.communityCommon.services.auth.SignInService
+import com.kdpark0723.communityCommon.models.user.dto.SignUpElement
+import com.kdpark0723.communityCommon.models.user.dto.SignUpResponseForm
+import com.kdpark0723.communityCommon.models.user.dto.SignUpUser
+import com.kdpark0723.communityCommon.services.auth.SignUpService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -18,16 +18,16 @@ import org.springframework.web.bind.annotation.ResponseBody
 import javax.validation.Valid
 
 @Controller
-@RequestMapping(path = ["/auth/signin"])
-class SignInController {
+@RequestMapping(path = ["/auth/sign_up"])
+class SignUpController {
     @Autowired
     private val userDAO: UserDAO = SpringUserDAOAdapter()
     @Autowired
-    private val signInService: SignInService = SignInService(userDAO)
+    private val signUpService: SignUpService = SignUpService(userDAO)
 
     @RequestMapping(value = ["/check"], method = [RequestMethod.POST])
     @ResponseBody
-    fun checkElementValid(@RequestBody element: SignInElement): ResponseEntity<ResponseForm> {
+    fun checkElementValid(@RequestBody element: SignUpElement): ResponseEntity<ResponseForm> {
         try {
             return checkElementValidUncheckException(element)
         } catch (e: Exception) {
@@ -35,26 +35,26 @@ class SignInController {
         }
     }
 
-    fun checkElementValidUncheckException(element: SignInElement): ResponseEntity<ResponseForm> {
-        signInService.checkValid(element)
+    fun checkElementValidUncheckException(element: SignUpElement): ResponseEntity<ResponseForm> {
+        signUpService.checkValid(element)
 
         return ResponseEntity(ResponseForm("This value is valid"), HttpStatus.OK)
     }
 
     @RequestMapping(value = [""], method = [RequestMethod.POST])
     @ResponseBody
-    fun signIn(@Valid @RequestBody signInUserData: SignInUser): ResponseEntity<SignInResponseForm> {
+    fun signUp(@Valid @RequestBody signUpUserData: SignUpUser): ResponseEntity<SignUpResponseForm> {
         try {
-            return signInUncheckException(signInUserData)
+            return signUpUncheckException(signUpUserData)
         } catch (e: Exception) {
             throw e
         }
     }
 
-    fun signInUncheckException(signInUserData: SignInUser): ResponseEntity<SignInResponseForm> {
-        val signInResponse = signInService.signIn(signInUserData.toUser())
+    fun signUpUncheckException(signUpUserData: SignUpUser): ResponseEntity<SignUpResponseForm> {
+        val signUpResponse = signUpService.signUp(signUpUserData.toUser())
 
-        return ResponseEntity(signInResponse, HttpStatus.CREATED)
+        return ResponseEntity(signUpResponse, HttpStatus.CREATED)
     }
 
 }

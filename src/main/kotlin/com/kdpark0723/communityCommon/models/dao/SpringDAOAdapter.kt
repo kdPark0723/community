@@ -15,10 +15,10 @@ abstract class SpringDAOAdapter<Entity, Key, Repository : CrudRepository<Entity,
     override fun findById(id: Key): Entity? {
         val entity = registeredRepository?.findById(id)
 
-        return unOptional(entity)
+        return convertNullable(entity)
     }
 
-    protected fun unOptional(entity: Optional<Entity>?): Entity? {
+    protected fun convertNullable(entity: Optional<Entity>?): Entity? {
         return if (entity != null) {
             if (entity.isPresent) {
                 entity.get()
@@ -37,5 +37,4 @@ abstract class SpringDAOAdapter<Entity, Key, Repository : CrudRepository<Entity,
     override fun exists(id: Key): Boolean {
         return registeredRepository?.existsById(id) ?: false
     }
-
 }

@@ -1,7 +1,7 @@
 package com.kdpark0723.communityCommon.tests.models.user
 
 import com.kdpark0723.communityCommon.models.user.UserModelFactory
-import com.kdpark0723.communityCommon.models.user.dto.SignInResponseForm
+import com.kdpark0723.communityCommon.models.user.dto.SignUpResponseForm
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -15,9 +15,9 @@ class UserDTOTests {
 
     @Test
     fun convertToUser() {
-        val signInData = factory.createDummySignInData()
+        val signUpData = factory.createDummySignUpData()
 
-        val toUser = signInData.toUser()
+        val toUser = signUpData.toUser()
         val user = factory.createDummyUser()
 
         Assert.assertEquals(toUser.hashedPassword, user.hashedPassword)
@@ -27,9 +27,9 @@ class UserDTOTests {
     }
 
     @Test
-    fun convertToSignInResponse() {
+    fun convertToSignUpResponse() {
         val user = factory.createDummyUser()
-        val response = SignInResponseForm(user)
+        val response = SignUpResponseForm(user)
 
         Assert.assertEquals(response.message, "Success: You are signed in.")
         Assert.assertEquals(response.user.identifier, user.identifier)

@@ -1,6 +1,6 @@
 package com.kdpark0723.communityCommon.models.user
 
-import com.kdpark0723.communityCommon.models.user.dto.SignInUser
+import com.kdpark0723.communityCommon.models.user.dto.SignUpUser
 
 class UserModelFactory {
     private val validIdentifier: String = "test@community.com"
@@ -8,19 +8,19 @@ class UserModelFactory {
     private val validEmail: String = validIdentifier
     private val validNickname: String = "test"
 
-    fun createDummySignInData(identifier: String = validIdentifier,
+    fun createDummySignUpData(identifier: String = validIdentifier,
                               hashedPassword: String = validHashedPassword,
                               email: String = identifier,
                               nickname: String = validNickname
-    ): SignInUser {
-        val signInData = SignInUser()
+    ): SignUpUser {
+        val signUpData = SignUpUser()
 
-        signInData.identifier = identifier
-        signInData.email = email
-        signInData.hashedPassword = hashedPassword
-        signInData.username = nickname
+        signUpData.identifier = identifier
+        signUpData.email = email
+        signUpData.hashedPassword = hashedPassword
+        signUpData.username = nickname
 
-        return signInData
+        return signUpData
     }
 
     fun createDummyUser(email: String = validEmail,
