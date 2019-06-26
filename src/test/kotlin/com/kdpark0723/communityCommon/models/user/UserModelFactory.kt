@@ -1,6 +1,6 @@
 package com.kdpark0723.communityCommon.models.user
 
-import com.kdpark0723.communityCommon.models.user.dto.SignUpUser
+import com.kdpark0723.communityCommon.models.user.dataTransferObject.SignUpUser
 
 class UserModelFactory {
     private val validIdentifier: String = "test@community.com"

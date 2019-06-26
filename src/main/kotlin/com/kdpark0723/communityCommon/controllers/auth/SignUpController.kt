@@ -1,11 +1,11 @@
 package com.kdpark0723.communityCommon.controllers.auth
 
 import com.kdpark0723.communityCommon.models.ResponseForm
-import com.kdpark0723.communityCommon.models.user.dao.SpringUserDAOAdapter
-import com.kdpark0723.communityCommon.models.user.dao.UserDAO
-import com.kdpark0723.communityCommon.models.user.dto.SignUpElement
-import com.kdpark0723.communityCommon.models.user.dto.SignUpResponseForm
-import com.kdpark0723.communityCommon.models.user.dto.SignUpUser
+import com.kdpark0723.communityCommon.models.user.dataAccessObject.UserDataAccess
+import com.kdpark0723.communityCommon.models.user.dataAccessObject.UserDataAccessAdapterUserRepository
+import com.kdpark0723.communityCommon.models.user.dataTransferObject.SignUpElement
+import com.kdpark0723.communityCommon.models.user.dataTransferObject.SignUpResponseForm
+import com.kdpark0723.communityCommon.models.user.dataTransferObject.SignUpUser
 import com.kdpark0723.communityCommon.services.auth.SignUpService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -21,9 +21,9 @@ import javax.validation.Valid
 @RequestMapping(path = ["/auth/sign_up"])
 class SignUpController {
     @Autowired
-    private val userDAO: UserDAO = SpringUserDAOAdapter()
+    private val userDataAccess: UserDataAccess = UserDataAccessAdapterUserRepository()
     @Autowired
-    private val signUpService: SignUpService = SignUpService(userDAO)
+    private val signUpService: SignUpService = SignUpService(userDataAccess)
 
     @RequestMapping(value = ["/check"], method = [RequestMethod.POST])
     @ResponseBody

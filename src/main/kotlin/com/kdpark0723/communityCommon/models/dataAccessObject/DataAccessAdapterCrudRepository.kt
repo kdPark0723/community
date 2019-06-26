@@ -1,19 +1,19 @@
-package com.kdpark0723.communityCommon.models.dao
+package com.kdpark0723.communityCommon.models.dataAccessObject
 
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-abstract class SpringDAOAdapter<Entity, Key, Repository : CrudRepository<Entity, Key>> : DataAccessObject<Entity, Key> {
-    protected final var registeredRepository: Repository? = null
+abstract class DataAccessAdapterCrudRepository<Entity, Key, Repository : CrudRepository<Entity, Key>> : DataAccess<Entity, Key> {
+    protected abstract val repository: Repository?
 
     override fun delete(entity: Entity) {
-        registeredRepository?.delete(entity)
+        repository?.delete(entity)
     }
 
     override fun findById(id: Key): Entity? {
-        val entity = registeredRepository?.findById(id)
+        val entity = repository?.findById(id)
 
         return convertNullable(entity)
     }
@@ -31,10 +31,10 @@ abstract class SpringDAOAdapter<Entity, Key, Repository : CrudRepository<Entity,
     }
 
     override fun save(entity: Entity) {
-        registeredRepository?.save(entity)
+        repository?.save(entity)
     }
 
     override fun exists(id: Key): Boolean {
-        return registeredRepository?.existsById(id) ?: false
+        return repository?.existsById(id) ?: false
     }
 }

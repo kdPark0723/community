@@ -1,5 +1,6 @@
 package com.kdpark0723.communityCommon.models.user
 
+import com.kdpark0723.communityCommon.models.DateAudit
 import com.kdpark0723.communityCommon.models.role.Role
 import java.util.*
 import javax.persistence.*
@@ -8,7 +9,7 @@ import javax.validation.constraints.Size
 
 @Entity
 @Table(name = "users")
-class User {
+class User : DateAudit() {
     @Id
     @Size(max = 50)
     var identifier: String = ""

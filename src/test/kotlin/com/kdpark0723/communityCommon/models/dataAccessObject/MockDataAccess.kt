@@ -1,6 +1,6 @@
-package com.kdpark0723.communityCommon.models.dao
+package com.kdpark0723.communityCommon.models.dataAccessObject
 
-abstract class MockDAO<Entity, Key> : DataAccessObject<Entity, Key> {
+abstract class MockDataAccess<Entity, Key> : DataAccess<Entity, Key> {
     private val repository: MutableMap<Key, Entity> = mutableMapOf()
 
     override fun delete(entity: Entity) {

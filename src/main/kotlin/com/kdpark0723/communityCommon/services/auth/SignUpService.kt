@@ -5,15 +5,15 @@ import com.kdpark0723.communityCommon.exceptions.UndefinedElementTypeException
 import com.kdpark0723.communityCommon.exceptions.UserAlreadySignedException
 import com.kdpark0723.communityCommon.models.user.User
 import com.kdpark0723.communityCommon.models.user.createUser
-import com.kdpark0723.communityCommon.models.user.dao.UserDAO
-import com.kdpark0723.communityCommon.models.user.dto.SignUpElement
-import com.kdpark0723.communityCommon.models.user.dto.SignUpResponseForm
+import com.kdpark0723.communityCommon.models.user.dataAccessObject.UserDataAccess
+import com.kdpark0723.communityCommon.models.user.dataTransferObject.SignUpElement
+import com.kdpark0723.communityCommon.models.user.dataTransferObject.SignUpResponseForm
 import org.springframework.stereotype.Component
 import javax.validation.Validation
 import javax.validation.ValidatorFactory
 
 @Component
-class SignUpService(private var userDAO: UserDAO) {
+class SignUpService(private var userDataAccess: UserDataAccess) {
     private var factory: ValidatorFactory = Validation.buildDefaultValidatorFactory()
     private var validator = factory.validator
 
@@ -47,10 +47,10 @@ class SignUpService(private var userDAO: UserDAO) {
     }
 
     fun signUp(user: User): SignUpResponseForm {
-        if (userDAO.exists(user.identifier))
+        if (userDataAccess.exists(user.identifier))
             throw UserAlreadySignedException()
 
-        userDAO.save(user)
+        userDataAccess.save(user)
 
         return SignUpResponseForm(user)
     }

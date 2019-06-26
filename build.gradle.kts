@@ -31,6 +31,8 @@ dependencies {
     implementation("io.springfox:springfox-swagger2:2.9.2")
     implementation("io.springfox:springfox-swagger-ui:2.9.2")
 
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+
     implementation("io.jsonwebtoken:jjwt-api:0.10.5")
 
     runtime("io.jsonwebtoken:jjwt-impl:0.10.5")

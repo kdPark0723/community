@@ -1,7 +1,7 @@
 package com.kdpark0723.communityCommon.tests.models.user
 
 import com.kdpark0723.communityCommon.models.user.UserModelFactory
-import com.kdpark0723.communityCommon.models.user.dto.SignUpResponseForm
+import com.kdpark0723.communityCommon.models.user.dataTransferObject.SignUpResponseForm
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

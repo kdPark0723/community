@@ -1,4 +1,4 @@
-package com.kdpark0723.communityCommon.models.role.dao
+package com.kdpark0723.communityCommon.models.role.dataAccessObject
 
 import com.kdpark0723.communityCommon.models.role.Role
 import org.springframework.data.repository.CrudRepository

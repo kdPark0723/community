@@ -11,6 +11,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     @Throws(Exception::class)
     override fun configure(web: WebSecurity) {
         web.ignoring().antMatchers(HttpMethod.POST, "/auth/sign_up/**")
+            .antMatchers(HttpMethod.GET, "/swagger-ui.html")
     }
 
     @Throws(Exception::class)

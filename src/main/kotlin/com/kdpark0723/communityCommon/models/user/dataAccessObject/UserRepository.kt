@@ -1,4 +1,4 @@
-package com.kdpark0723.communityCommon.models.user.dao
+package com.kdpark0723.communityCommon.models.user.dataAccessObject
 
 import com.kdpark0723.communityCommon.models.user.User
 import org.springframework.data.repository.CrudRepository

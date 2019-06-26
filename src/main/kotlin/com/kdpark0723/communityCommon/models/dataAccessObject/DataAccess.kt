@@ -1,6 +1,6 @@
-package com.kdpark0723.communityCommon.models.dao
+package com.kdpark0723.communityCommon.models.dataAccessObject
 
-interface DataAccessObject<Entity, Key> {
+interface DataAccess<Entity, Key> {
     fun delete(entity: Entity)
     fun findById(id: Key): Entity?
     fun save(entity: Entity)

@@ -3,10 +3,10 @@ package com.kdpark0723.communityCommon.tests.services.auth
 import com.kdpark0723.communityCommon.exceptions.InvalidElementException
 import com.kdpark0723.communityCommon.exceptions.UndefinedElementTypeException
 import com.kdpark0723.communityCommon.exceptions.UserAlreadySignedException
-import com.kdpark0723.communityCommon.models.user.MockUserDAO
+import com.kdpark0723.communityCommon.models.user.MockUserDataAccess
 import com.kdpark0723.communityCommon.models.user.UserModelFactory
-import com.kdpark0723.communityCommon.models.user.dao.UserDAO
-import com.kdpark0723.communityCommon.models.user.dto.SignUpElement
+import com.kdpark0723.communityCommon.models.user.dataAccessObject.UserDataAccess
+import com.kdpark0723.communityCommon.models.user.dataTransferObject.SignUpElement
 import com.kdpark0723.communityCommon.services.auth.SignUpService
 import org.junit.Assert
 import org.junit.Test
@@ -17,8 +17,8 @@ import org.springframework.test.context.junit4.SpringRunner
 @RunWith(SpringRunner::class)
 @SpringBootTest
 class SignUpServiceTests {
-    private val userDAO: UserDAO = MockUserDAO()
-    private val signUpService: SignUpService = SignUpService(userDAO)
+    private val userDataAccess: UserDataAccess = MockUserDataAccess()
+    private val signUpService: SignUpService = SignUpService(userDataAccess)
     private val factory = UserModelFactory()
 
     @Test
@@ -58,8 +58,8 @@ class SignUpServiceTests {
 
         signUpService.signUp(user)
 
-        Assert.assertTrue(userDAO.exists(user.identifier))
-        userDAO.delete(user)
+        Assert.assertTrue(userDataAccess.exists(user.identifier))
+        userDataAccess.delete(user)
     }
 
     @Test(expected = UserAlreadySignedException::class)
@@ -72,7 +72,7 @@ class SignUpServiceTests {
         } catch (e: Exception) {
             throw e
         } finally {
-            userDAO.delete(user)
+            userDataAccess.delete(user)
         }
     }
 }
