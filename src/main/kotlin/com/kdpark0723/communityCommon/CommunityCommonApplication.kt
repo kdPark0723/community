@@ -7,13 +7,12 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters
 import java.util.*
 import javax.annotation.PostConstruct
 
-
 @SpringBootApplication
 @EntityScan(basePackageClasses = [CommunityCommonApplication::class, Jsr310JpaConverters::class])
 class CommunityCommonApplication {
     @PostConstruct
-    internal fun init() {
-        TimeZone.setDefault(TimeZone.getTimeZone("GMT"))
+    fun init() {
+        TimeZone.setDefault(TimeZone.getTimeZone("JST"))
     }
 }
 

@@ -1,13 +1,12 @@
 package com.kdpark0723.communityCommon.tests.services.auth
 
-import com.kdpark0723.communityCommon.exceptions.InvalidElementException
-import com.kdpark0723.communityCommon.exceptions.UndefinedElementTypeException
-import com.kdpark0723.communityCommon.exceptions.UserAlreadySignedException
-import com.kdpark0723.communityCommon.models.user.MockUserDataAccess
-import com.kdpark0723.communityCommon.models.user.UserModelFactory
-import com.kdpark0723.communityCommon.models.user.dataAccessObject.UserDataAccess
-import com.kdpark0723.communityCommon.models.user.dataTransferObject.SignUpElement
-import com.kdpark0723.communityCommon.services.auth.SignUpService
+import com.kdpark0723.communityCommon.exception.InvalidElementException
+import com.kdpark0723.communityCommon.exception.UserAlreadySignedException
+import com.kdpark0723.communityCommon.model.user.MockUserDataAccess
+import com.kdpark0723.communityCommon.model.user.UserModelFactory
+import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccess
+import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpElement
+import com.kdpark0723.communityCommon.service.auth.SignUpService
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,24 +24,15 @@ class SignUpServiceTests {
     fun checkValidElement() {
         val user = factory.createDummyUser()
 
-        val identifierElement = SignUpElement(user.identifier, SignUpElement.Type.IDENTIFIER.str)
+        val nameElement = SignUpElement(user.name, SignUpElement.Type.NAME.str)
+        val usernameElement = SignUpElement(user.username, SignUpElement.Type.USERNAME.str)
         val emailElement = SignUpElement(user.email, SignUpElement.Type.EMAIL.str)
         val hashedPasswordElement = SignUpElement(user.hashedPassword, SignUpElement.Type.HASHED_PASSWORD.str)
-        val nicknameElement = SignUpElement(user.username, SignUpElement.Type.USERNAME.str)
 
-        signUpService.checkValid(identifierElement)
+        signUpService.checkValid(nameElement)
+        signUpService.checkValid(usernameElement)
         signUpService.checkValid(emailElement)
         signUpService.checkValid(hashedPasswordElement)
-        signUpService.checkValid(nicknameElement)
-    }
-
-    @Test(expected = UndefinedElementTypeException::class)
-    fun checkUndefinedElementType() {
-        val user = factory.createDummyUser()
-
-        val undefinedElement = SignUpElement(user.identifier, "undefined")
-
-        signUpService.checkValid(undefinedElement)
     }
 
     @Test(expected = InvalidElementException::class)
@@ -58,7 +48,7 @@ class SignUpServiceTests {
 
         signUpService.signUp(user)
 
-        Assert.assertTrue(userDataAccess.exists(user.identifier))
+        Assert.assertTrue(userDataAccess.existsByEmail(user.email))
         userDataAccess.delete(user)
     }
 
