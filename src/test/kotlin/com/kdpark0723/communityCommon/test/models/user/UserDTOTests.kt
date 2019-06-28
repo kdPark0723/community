@@ -1,4 +1,4 @@
-package com.kdpark0723.communityCommon.unit.models.user
+package com.kdpark0723.communityCommon.test.models.user
 
 import com.kdpark0723.communityCommon.model.user.UserFactory
 import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpResponseForm

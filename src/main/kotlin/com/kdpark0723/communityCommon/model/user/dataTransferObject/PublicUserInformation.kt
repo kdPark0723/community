@@ -3,6 +3,11 @@ package com.kdpark0723.communityCommon.model.user.dataTransferObject
 import com.kdpark0723.communityCommon.model.user.User
 
 class PublicUserInformation() {
+
+    var name: String? = null
+    var username: String? = null
+    var email: String? = null
+
     constructor(user: User) : this() {
         this.name = user.name
         this.username = user.username
@@ -22,8 +27,4 @@ class PublicUserInformation() {
         result = 31 * result + (email?.hashCode() ?: 0)
         return result
     }
-
-    var name: String? = null
-    var username: String? = null
-    var email: String? = null
 }

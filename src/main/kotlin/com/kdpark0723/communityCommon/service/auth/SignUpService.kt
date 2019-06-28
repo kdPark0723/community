@@ -13,6 +13,13 @@ import javax.validation.ValidatorFactory
 
 @Service
 class SignUpService(private var userDataAccess: UserDataAccess) {
+
+    private val factory: ValidatorFactory = Validation.buildDefaultValidatorFactory()
+
+    private var validator = factory.validator
+
+    private val validUser: User = User(validName, validUserName, validEmail, validHashedPassword)
+
     fun signUp(user: User): SignUpResponseForm {
         if (userDataAccess.existsByEmail(user.email))
             throw UserAlreadySignedException()
@@ -45,11 +52,6 @@ class SignUpService(private var userDataAccess: UserDataAccess) {
                 throw UndefinedElementTypeException()
         }
     }
-
-    private val factory: ValidatorFactory = Validation.buildDefaultValidatorFactory()
-    private var validator = factory.validator
-
-    private val validUser: User = User(validName, validUserName, validEmail, validHashedPassword)
 }
 
 private const val validName = "valid Name"

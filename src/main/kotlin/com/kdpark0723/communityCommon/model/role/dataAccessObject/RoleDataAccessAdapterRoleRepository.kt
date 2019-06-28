@@ -7,12 +7,14 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class RoleDataAccessAdapterRoleRepository : RoleDAO, DataAccessAdapterCrudRepository<Role, Long, RoleRepository>() {
+
+    @Autowired
+    final override val repository: RoleRepository? = null
+
     override fun findByName(name: Role.Name): Role? {
         val role = repository?.findByName(name)
 
         return convertNullable(role)
     }
 
-    @Autowired
-    final override val repository: RoleRepository? = null
 }

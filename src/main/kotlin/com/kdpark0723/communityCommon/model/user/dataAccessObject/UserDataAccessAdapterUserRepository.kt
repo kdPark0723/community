@@ -7,6 +7,10 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class UserDataAccessAdapterUserRepository : UserDataAccess, DataAccessAdapterCrudRepository<User, Long, UserRepository>() {
+
+    @Autowired
+    final override val repository: UserRepository? = null
+
     override fun findByEmail(email: String): User? {
         return this.convertNullable(this.repository?.findByEmail(email))
     }
@@ -30,7 +34,4 @@ class UserDataAccessAdapterUserRepository : UserDataAccess, DataAccessAdapterCru
     override fun existsByEmail(email: String): Boolean {
         return this.repository?.existsByEmail(email) ?: false
     }
-
-    @Autowired
-    final override val repository: UserRepository? = null
 }

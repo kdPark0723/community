@@ -6,6 +6,7 @@ import javax.persistence.*
 @Entity
 @Table(name = "roles")
 class Role {
+
     enum class Name {
         USER, ADMIN;
     }

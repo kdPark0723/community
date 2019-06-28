@@ -1,4 +1,4 @@
-package com.kdpark0723.communityCommon.unit
+package com.kdpark0723.communityCommon.test
 
 import com.kdpark0723.communityCommon.AbstractTest
 import org.junit.Assert.assertEquals

@@ -12,14 +12,14 @@ import javax.persistence.MappedSuperclass
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
-@JsonIgnoreProperties(value = ["created_at", "updated_at"], allowGetters = true)
+@JsonIgnoreProperties(value = ["createdAt", "updatedAt"], allowGetters = true)
 abstract class DateAudit : Serializable {
 
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     var createdAt: Instant? = null
 
     @LastModifiedDate
-    @Column(nullable = false)
+    @Column(name = "updated_at", nullable = false)
     var updatedAt: Instant? = null
 }

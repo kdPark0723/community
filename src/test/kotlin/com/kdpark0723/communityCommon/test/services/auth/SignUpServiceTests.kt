@@ -1,4 +1,4 @@
-package com.kdpark0723.communityCommon.unit.services.auth
+package com.kdpark0723.communityCommon.test.services.auth
 
 import com.kdpark0723.communityCommon.exception.InvalidElementException
 import com.kdpark0723.communityCommon.exception.UserAlreadySignedException
@@ -16,6 +16,30 @@ import org.springframework.test.context.junit4.SpringRunner
 @RunWith(SpringRunner::class)
 @SpringBootTest
 class SignUpServiceTests {
+    @Test
+    fun signUpSuccess() {
+        val user = factory.createDummyUser()
+
+        signUpService.signUp(user)
+
+        assertTrue(userDataAccess.existsByEmail(user.email))
+        userDataAccess.delete(user)
+    }
+
+    @Test(expected = UserAlreadySignedException::class)
+    fun signUpFailBecauseUserAlreadySigned() {
+        val user = factory.createDummyUser()
+
+        try {
+            signUpService.signUp(user)
+            signUpService.signUp(user)
+        } catch (e: Exception) {
+            throw e
+        } finally {
+            userDataAccess.delete(user)
+        }
+    }
+
     @Test
     fun checkValidElement() {
         val user = factory.createDummyUser()
@@ -36,30 +60,6 @@ class SignUpServiceTests {
         val emailElement = SignUpElement("invalidEmail", SignUpElement.Type.EMAIL.str)
 
         signUpService.checkValid(emailElement)
-    }
-
-    @Test
-    fun checkSignUp() {
-        val user = factory.createDummyUser()
-
-        signUpService.signUp(user)
-
-        assertTrue(userDataAccess.existsByEmail(user.email))
-        userDataAccess.delete(user)
-    }
-
-    @Test(expected = UserAlreadySignedException::class)
-    fun checkSignUpUserAlreadySigned() {
-        val user = factory.createDummyUser()
-
-        try {
-            signUpService.signUp(user)
-            signUpService.signUp(user)
-        } catch (e: Exception) {
-            throw e
-        } finally {
-            userDataAccess.delete(user)
-        }
     }
 
     private val userDataAccess: UserDataAccess = MockUserDataAccess()

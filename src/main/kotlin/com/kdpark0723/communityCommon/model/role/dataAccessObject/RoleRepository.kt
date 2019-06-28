@@ -7,5 +7,6 @@ import java.util.*
 
 @Repository
 interface RoleRepository : CrudRepository<Role, Long> {
+
     fun findByName(name: Role.Name): Optional<Role>
 }

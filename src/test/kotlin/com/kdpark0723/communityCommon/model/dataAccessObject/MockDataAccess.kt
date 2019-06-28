@@ -1,8 +1,6 @@
 package com.kdpark0723.communityCommon.model.dataAccessObject
 
 abstract class MockDataAccess<Entity, Key> : DataAccess<Entity, Key> {
-    protected val repository: MutableMap<Key, Entity> = mutableMapOf()
-
     override fun delete(entity: Entity) {
         repository.remove(getEntityKey(entity))
     }
@@ -20,5 +18,7 @@ abstract class MockDataAccess<Entity, Key> : DataAccess<Entity, Key> {
     }
 
     abstract fun getEntityKey(entity: Entity): Key
+
+    protected val repository: MutableMap<Key, Entity> = mutableMapOf()
 }
 

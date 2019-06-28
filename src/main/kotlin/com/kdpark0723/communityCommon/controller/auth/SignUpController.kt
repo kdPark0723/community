@@ -4,8 +4,8 @@ import com.kdpark0723.communityCommon.model.ResponseForm
 import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccess
 import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccessAdapterUserRepository
 import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpElement
+import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpRequest
 import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpResponseForm
-import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpUser
 import com.kdpark0723.communityCommon.service.auth.SignUpService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -20,18 +20,25 @@ import javax.validation.Valid
 @Controller
 @RequestMapping(path = ["api/auth/sign_up"])
 class SignUpController {
+
+    @Autowired
+    private val userDataAccess: UserDataAccess = UserDataAccessAdapterUserRepository()
+
+    @Autowired
+    private val signUpService: SignUpService = SignUpService(userDataAccess)
+    
     @RequestMapping(value = [""], method = [RequestMethod.POST])
     @ResponseBody
-    fun signUp(@Valid @RequestBody signUpUserData: SignUpUser): ResponseEntity<SignUpResponseForm> {
+    fun signUp(@Valid @RequestBody signUpRequestData: SignUpRequest): ResponseEntity<SignUpResponseForm> {
         try {
-            return signUpUncheckException(signUpUserData)
+            return signUpUncheckException(signUpRequestData)
         } catch (e: Exception) {
             throw e
         }
     }
 
-    fun signUpUncheckException(signUpUserData: SignUpUser): ResponseEntity<SignUpResponseForm> {
-        val signUpResponse = signUpService.signUp(signUpUserData.toUser())
+    fun signUpUncheckException(signUpRequestData: SignUpRequest): ResponseEntity<SignUpResponseForm> {
+        val signUpResponse = signUpService.signUp(signUpRequestData.toUser())
 
         return ResponseEntity(signUpResponse, HttpStatus.CREATED)
     }
@@ -51,9 +58,4 @@ class SignUpController {
 
         return ResponseEntity(ResponseForm("This value is valid"), HttpStatus.OK)
     }
-
-    @Autowired
-    private val userDataAccess: UserDataAccess = UserDataAccessAdapterUserRepository()
-    @Autowired
-    private val signUpService: SignUpService = SignUpService(userDataAccess)
 }

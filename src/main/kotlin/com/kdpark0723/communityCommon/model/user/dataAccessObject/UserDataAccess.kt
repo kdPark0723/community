@@ -4,6 +4,7 @@ import com.kdpark0723.communityCommon.model.dataAccessObject.DataAccess
 import com.kdpark0723.communityCommon.model.user.User
 
 interface UserDataAccess : DataAccess<User, Long> {
+
     fun findByEmail(email: String): User?
 
     fun findByUsernameOrEmail(username: String, email: String): User?

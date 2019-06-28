@@ -7,7 +7,8 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
 
 @Validated
-class SignUpUser {
+class SignUpRequest {
+
     @NotBlank
     @Size(max = 40)
     var name: String = ""

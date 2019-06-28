@@ -6,6 +6,9 @@ import java.util.*
 
 @Repository
 abstract class DataAccessAdapterCrudRepository<Entity, Key, Repository : CrudRepository<Entity, Key>> : DataAccess<Entity, Key> {
+
+    protected abstract val repository: Repository?
+
     override fun delete(entity: Entity) {
         repository?.delete(entity)
     }
@@ -35,6 +38,4 @@ abstract class DataAccessAdapterCrudRepository<Entity, Key, Repository : CrudRep
     override fun exists(id: Key): Boolean {
         return repository?.existsById(id) ?: false
     }
-
-    protected abstract val repository: Repository?
 }

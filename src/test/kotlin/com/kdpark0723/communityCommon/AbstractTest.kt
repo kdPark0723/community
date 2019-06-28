@@ -18,6 +18,12 @@ import java.io.IOException
 @SpringBootTest(classes = [CommunityCommonApplication::class])
 @WebAppConfiguration
 abstract class AbstractTest {
+
+    protected lateinit var mvc: MockMvc
+
+    @Autowired
+    internal var webApplicationContext: WebApplicationContext? = null
+
     @Throws(JsonProcessingException::class)
     protected fun mapToJson(obj: Any): String {
         val objectMapper = ObjectMapper()
@@ -33,8 +39,4 @@ abstract class AbstractTest {
     protected fun setUp() {
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext!!).build()
     }
-
-    protected lateinit var mvc: MockMvc
-    @Autowired
-    internal var webApplicationContext: WebApplicationContext? = null
 }
