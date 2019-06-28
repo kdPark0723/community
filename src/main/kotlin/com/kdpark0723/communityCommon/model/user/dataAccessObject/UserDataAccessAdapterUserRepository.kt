@@ -3,9 +3,9 @@ package com.kdpark0723.communityCommon.model.user.dataAccessObject
 import com.kdpark0723.communityCommon.model.dataAccessObject.DataAccessAdapterCrudRepository
 import com.kdpark0723.communityCommon.model.user.User
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
 
-@Component
+@Repository
 class UserDataAccessAdapterUserRepository : UserDataAccess, DataAccessAdapterCrudRepository<User, Long, UserRepository>() {
     override fun findByEmail(email: String): User? {
         return this.convertNullable(this.repository?.findByEmail(email))

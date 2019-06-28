@@ -18,12 +18,23 @@ import org.springframework.web.bind.annotation.ResponseBody
 import javax.validation.Valid
 
 @Controller
-@RequestMapping(path = ["/auth/sign_up"])
+@RequestMapping(path = ["api/auth/sign_up"])
 class SignUpController {
-    @Autowired
-    private val userDataAccess: UserDataAccess = UserDataAccessAdapterUserRepository()
-    @Autowired
-    private val signUpService: SignUpService = SignUpService(userDataAccess)
+    @RequestMapping(value = [""], method = [RequestMethod.POST])
+    @ResponseBody
+    fun signUp(@Valid @RequestBody signUpUserData: SignUpUser): ResponseEntity<SignUpResponseForm> {
+        try {
+            return signUpUncheckException(signUpUserData)
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    fun signUpUncheckException(signUpUserData: SignUpUser): ResponseEntity<SignUpResponseForm> {
+        val signUpResponse = signUpService.signUp(signUpUserData.toUser())
+
+        return ResponseEntity(signUpResponse, HttpStatus.CREATED)
+    }
 
     @RequestMapping(value = ["/check"], method = [RequestMethod.POST])
     @ResponseBody
@@ -41,20 +52,8 @@ class SignUpController {
         return ResponseEntity(ResponseForm("This value is valid"), HttpStatus.OK)
     }
 
-    @RequestMapping(value = [""], method = [RequestMethod.POST])
-    @ResponseBody
-    fun signUp(@Valid @RequestBody signUpUserData: SignUpUser): ResponseEntity<SignUpResponseForm> {
-        try {
-            return signUpUncheckException(signUpUserData)
-        } catch (e: Exception) {
-            throw e
-        }
-    }
-
-    fun signUpUncheckException(signUpUserData: SignUpUser): ResponseEntity<SignUpResponseForm> {
-        val signUpResponse = signUpService.signUp(signUpUserData.toUser())
-
-        return ResponseEntity(signUpResponse, HttpStatus.CREATED)
-    }
-
+    @Autowired
+    private val userDataAccess: UserDataAccess = UserDataAccessAdapterUserRepository()
+    @Autowired
+    private val signUpService: SignUpService = SignUpService(userDataAccess)
 }

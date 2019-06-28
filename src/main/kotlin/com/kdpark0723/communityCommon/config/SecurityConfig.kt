@@ -90,17 +90,19 @@
 
 package com.kdpark0723.communityCommon.config
 
+import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 
+@Configuration
 @EnableWebSecurity
 class SecurityConfig : WebSecurityConfigurerAdapter() {
     @Throws(Exception::class)
     override fun configure(web: WebSecurity) {
-        web.ignoring().antMatchers(HttpMethod.POST, "/auth/sign_up/**")
+        web.ignoring().antMatchers(HttpMethod.POST, "/api/auth/sign_up/**")
     }
 
     @Throws(Exception::class)

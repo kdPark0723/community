@@ -7,22 +7,20 @@ import com.kdpark0723.communityCommon.model.user.User
 import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccess
 import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpElement
 import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpResponseForm
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 import javax.validation.Validation
 import javax.validation.ValidatorFactory
 
-@Component
+@Service
 class SignUpService(private var userDataAccess: UserDataAccess) {
-    private var factory: ValidatorFactory = Validation.buildDefaultValidatorFactory()
-    private var validator = factory.validator
+    fun signUp(user: User): SignUpResponseForm {
+        if (userDataAccess.existsByEmail(user.email))
+            throw UserAlreadySignedException()
 
-    private final val validName = "valid Name"
-    private final val validUserName = "validUserName"
-    private final val validEmail = "validEmail@community.com"
-    private final val validHashedPassword = "1a27b6b03d41de5ff0f30c136d14d8b59c079ea54b1d9b41fd4c2c0178a7f259"
+        userDataAccess.save(user)
 
-
-    private val validUser: User = User(validName, validUserName, validEmail, validHashedPassword)
+        return SignUpResponseForm(user)
+    }
 
     fun checkValid(element: SignUpElement) {
         val checkedUser: User = getCanInvalidUser(element)
@@ -48,12 +46,13 @@ class SignUpService(private var userDataAccess: UserDataAccess) {
         }
     }
 
-    fun signUp(user: User): SignUpResponseForm {
-        if (userDataAccess.existsByEmail(user.email))
-            throw UserAlreadySignedException()
+    private val factory: ValidatorFactory = Validation.buildDefaultValidatorFactory()
+    private var validator = factory.validator
 
-        userDataAccess.save(user)
-
-        return SignUpResponseForm(user)
-    }
+    private val validUser: User = User(validName, validUserName, validEmail, validHashedPassword)
 }
+
+private const val validName = "valid Name"
+private const val validUserName = "validUserName"
+private const val validEmail = "validEmail@community.com"
+private const val validHashedPassword = "1a27b6b03d41de5ff0f30c136d14d8b59c079ea54b1d9b41fd4c2c0178a7f259"

@@ -1,13 +1,13 @@
-package com.kdpark0723.communityCommon.tests.services.auth
+package com.kdpark0723.communityCommon.unit.services.auth
 
 import com.kdpark0723.communityCommon.exception.InvalidElementException
 import com.kdpark0723.communityCommon.exception.UserAlreadySignedException
 import com.kdpark0723.communityCommon.model.user.MockUserDataAccess
-import com.kdpark0723.communityCommon.model.user.UserModelFactory
+import com.kdpark0723.communityCommon.model.user.UserFactory
 import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccess
 import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpElement
 import com.kdpark0723.communityCommon.service.auth.SignUpService
-import org.junit.Assert
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.boot.test.context.SpringBootTest
@@ -16,10 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner
 @RunWith(SpringRunner::class)
 @SpringBootTest
 class SignUpServiceTests {
-    private val userDataAccess: UserDataAccess = MockUserDataAccess()
-    private val signUpService: SignUpService = SignUpService(userDataAccess)
-    private val factory = UserModelFactory()
-
     @Test
     fun checkValidElement() {
         val user = factory.createDummyUser()
@@ -48,7 +44,7 @@ class SignUpServiceTests {
 
         signUpService.signUp(user)
 
-        Assert.assertTrue(userDataAccess.existsByEmail(user.email))
+        assertTrue(userDataAccess.existsByEmail(user.email))
         userDataAccess.delete(user)
     }
 
@@ -65,4 +61,8 @@ class SignUpServiceTests {
             userDataAccess.delete(user)
         }
     }
+
+    private val userDataAccess: UserDataAccess = MockUserDataAccess()
+    private val signUpService: SignUpService = SignUpService(userDataAccess)
+    private val factory = UserFactory()
 }

@@ -1,4 +1,4 @@
-package com.kdpark0723.communityCommon.tests
+package com.kdpark0723.communityCommon.unit
 
 import org.junit.Test
 import org.junit.runner.RunWith
