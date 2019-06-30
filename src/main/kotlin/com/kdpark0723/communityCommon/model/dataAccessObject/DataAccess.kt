@@ -1,5 +1,6 @@
 package com.kdpark0723.communityCommon.model.dataAccessObject
 
+
 interface DataAccess<Entity, Key> {
 
     fun delete(entity: Entity)

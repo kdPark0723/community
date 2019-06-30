@@ -1,7 +1,7 @@
-package com.kdpark0723.communityCommon.security
+package com.kdpark0723.communityCommon.service.user
 
 import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccess
-import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccessAdapterUserRepository
+import com.kdpark0723.communityCommon.model.user.dataTransferObject.UserPrincipal
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class CustomUserDetailsService : UserDetailsService {
-
-    @Autowired
-    private val userDataAccess: UserDataAccess = UserDataAccessAdapterUserRepository()
+class CustomUserDetailsService @Autowired constructor(private val userDataAccess: UserDataAccess) : UserDetailsService {
 
     @Transactional
     @Throws(UsernameNotFoundException::class)

@@ -1,11 +1,10 @@
 package com.kdpark0723.communityCommon.controller.auth
 
-import com.kdpark0723.communityCommon.model.ResponseForm
-import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccess
-import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccessAdapterUserRepository
+import com.kdpark0723.communityCommon.exception.AppException
+import com.kdpark0723.communityCommon.model.Response
 import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpElement
 import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpRequest
-import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpResponseForm
+import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpResponse
 import com.kdpark0723.communityCommon.service.auth.SignUpService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -22,14 +21,11 @@ import javax.validation.Valid
 class SignUpController {
 
     @Autowired
-    private val userDataAccess: UserDataAccess = UserDataAccessAdapterUserRepository()
-
-    @Autowired
-    private val signUpService: SignUpService = SignUpService(userDataAccess)
+    private val signUpService: SignUpService? = null
     
     @RequestMapping(value = [""], method = [RequestMethod.POST])
     @ResponseBody
-    fun signUp(@Valid @RequestBody signUpRequestData: SignUpRequest): ResponseEntity<SignUpResponseForm> {
+    fun signUp(@Valid @RequestBody signUpRequestData: SignUpRequest): ResponseEntity<SignUpResponse> {
         try {
             return signUpUncheckException(signUpRequestData)
         } catch (e: Exception) {
@@ -37,15 +33,16 @@ class SignUpController {
         }
     }
 
-    fun signUpUncheckException(signUpRequestData: SignUpRequest): ResponseEntity<SignUpResponseForm> {
-        val signUpResponse = signUpService.signUp(signUpRequestData.toUser())
+    fun signUpUncheckException(signUpRequestData: SignUpRequest): ResponseEntity<SignUpResponse> {
+        val signUpResponse = signUpService?.signUp(signUpRequestData.toUser())
+            ?: throw AppException("Service is not init")
 
         return ResponseEntity(signUpResponse, HttpStatus.CREATED)
     }
 
     @RequestMapping(value = ["/check"], method = [RequestMethod.POST])
     @ResponseBody
-    fun checkElementValid(@RequestBody element: SignUpElement): ResponseEntity<ResponseForm> {
+    fun checkElementValid(@RequestBody element: SignUpElement): ResponseEntity<Response> {
         try {
             return checkElementValidUncheckException(element)
         } catch (e: Exception) {
@@ -53,9 +50,9 @@ class SignUpController {
         }
     }
 
-    fun checkElementValidUncheckException(element: SignUpElement): ResponseEntity<ResponseForm> {
-        signUpService.checkValid(element)
+    fun checkElementValidUncheckException(element: SignUpElement): ResponseEntity<Response> {
+        signUpService?.checkValid(element) ?: throw AppException("Service is not init")
 
-        return ResponseEntity(ResponseForm("This value is valid"), HttpStatus.OK)
+        return ResponseEntity(Response("This value is valid"), HttpStatus.OK)
     }
 }

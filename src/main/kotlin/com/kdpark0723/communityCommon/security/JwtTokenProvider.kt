@@ -1,11 +1,17 @@
 package com.kdpark0723.communityCommon.security
 
-import io.jsonwebtoken.*
+import com.kdpark0723.communityCommon.model.user.dataTransferObject.UserPrincipal
+import io.jsonwebtoken.ExpiredJwtException
+import io.jsonwebtoken.Jwts
+import io.jsonwebtoken.MalformedJwtException
+import io.jsonwebtoken.UnsupportedJwtException
+import io.jsonwebtoken.security.Keys
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
 import java.util.*
+import javax.crypto.SecretKey
 
 @Component
 class JwtTokenProvider {
@@ -17,6 +23,8 @@ class JwtTokenProvider {
     private val jwtExpirationInMs: Int = 0
 
     fun generateToken(authentication: Authentication): String {
+        val key = getSecretKey()
+
         val userPrincipal = authentication.principal as UserPrincipal
 
         val now = Date()
@@ -26,7 +34,7 @@ class JwtTokenProvider {
             .setSubject((userPrincipal.id!!).toString())
             .setIssuedAt(Date())
             .setExpiration(expiryDate)
-            .signWith(SignatureAlgorithm.HS512, jwtSecret)
+            .signWith(key)
             .compact()
     }
 
@@ -40,11 +48,11 @@ class JwtTokenProvider {
     }
 
     fun validateToken(authToken: String): Boolean {
+        val key = getSecretKey()
+
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken)
+            Jwts.parser().setSigningKey(key).parseClaimsJws(authToken)
             return true
-        } catch (ex: SignatureException) {
-            logger.error("Invalid JWT signature")
         } catch (ex: MalformedJwtException) {
             logger.error("Invalid JWT token")
         } catch (ex: ExpiredJwtException) {
@@ -56,6 +64,10 @@ class JwtTokenProvider {
         }
 
         return false
+    }
+
+    fun getSecretKey(): SecretKey {
+        return Keys.hmacShaKeyFor(jwtSecret?.toByteArray())!!
     }
 }
 

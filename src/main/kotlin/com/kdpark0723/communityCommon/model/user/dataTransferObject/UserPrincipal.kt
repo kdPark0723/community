@@ -1,4 +1,4 @@
-package com.kdpark0723.communityCommon.security
+package com.kdpark0723.communityCommon.model.user.dataTransferObject
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore

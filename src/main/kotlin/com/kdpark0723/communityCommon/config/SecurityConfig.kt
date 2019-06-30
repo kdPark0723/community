@@ -1,8 +1,8 @@
 package com.kdpark0723.communityCommon.config
 
-import com.kdpark0723.communityCommon.security.CustomUserDetailsService
 import com.kdpark0723.communityCommon.security.JwtAuthenticationEntryPoint
 import com.kdpark0723.communityCommon.security.JwtAuthenticationFilter
+import com.kdpark0723.communityCommon.service.user.CustomUserDetailsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -24,21 +24,21 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
 class SecurityConfig : WebSecurityConfigurerAdapter() {
 
+    @Autowired
+    private val userDetailsService: CustomUserDetailsService? = null
+
+    @Autowired
+    private val unauthorizedHandler: JwtAuthenticationEntryPoint? = null
+
     @Bean
     fun jwtAuthenticationFilter(): JwtAuthenticationFilter {
         return JwtAuthenticationFilter()
     }
 
-    @Autowired
-    internal var customUserDetailsService: CustomUserDetailsService? = null
-
-    @Autowired
-    private val unauthorizedHandler: JwtAuthenticationEntryPoint? = null
-
     @Throws(Exception::class)
     public override fun configure(authenticationManagerBuilder: AuthenticationManagerBuilder) {
         authenticationManagerBuilder
-            .userDetailsService<UserDetailsService>(customUserDetailsService)
+            .userDetailsService<UserDetailsService>(userDetailsService)
             .passwordEncoder(passwordEncoder())
     }
 

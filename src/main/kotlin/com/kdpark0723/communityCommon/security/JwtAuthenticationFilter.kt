@@ -1,6 +1,6 @@
 package com.kdpark0723.communityCommon.security
 
-import org.slf4j.LoggerFactory
+import com.kdpark0723.communityCommon.service.user.CustomUserDetailsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -20,7 +20,7 @@ class JwtAuthenticationFilter : OncePerRequestFilter() {
     private val tokenProvider: JwtTokenProvider? = null
 
     @Autowired
-    private val customUserDetailsService: CustomUserDetailsService? = null
+    private val userDetailsService: CustomUserDetailsService? = null
 
     @Throws(ServletException::class, IOException::class)
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
@@ -30,8 +30,8 @@ class JwtAuthenticationFilter : OncePerRequestFilter() {
             if (StringUtils.hasText(jwt) && tokenProvider!!.validateToken(jwt!!)) {
                 val userId = tokenProvider.getUserIdFromJWT(jwt)
 
-                val userDetails = customUserDetailsService!!.loadUserById(userId!!)
-                val authentication = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
+                val userDetails = userDetailsService?.loadUserById(userId!!)
+                val authentication = UsernamePasswordAuthenticationToken(userDetails, null, userDetails?.authorities)
                 authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
 
                 SecurityContextHolder.getContext().authentication = authentication
@@ -50,5 +50,3 @@ class JwtAuthenticationFilter : OncePerRequestFilter() {
         } else null
     }
 }
-
-private val logger = LoggerFactory.getLogger(JwtAuthenticationFilter::class.java)

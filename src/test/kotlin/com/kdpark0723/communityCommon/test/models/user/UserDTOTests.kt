@@ -1,7 +1,7 @@
 package com.kdpark0723.communityCommon.test.models.user
 
 import com.kdpark0723.communityCommon.model.user.UserFactory
-import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpResponseForm
+import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpResponse
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -28,9 +28,9 @@ class UserDTOTests {
     @Test
     fun convertToSignUpResponse() {
         val user = factory.createDummyUser()
-        val response = SignUpResponseForm(user)
+        val response = SignUpResponse(user)
 
-        assertEquals(response.message, "Success: You are signed in.")
+        assertEquals(response.message, "Success: You are signed up.")
         assertEquals(response.user?.name, user.name)
         assertEquals(response.user?.username, user.username)
         assertEquals(response.user?.email, user.email)

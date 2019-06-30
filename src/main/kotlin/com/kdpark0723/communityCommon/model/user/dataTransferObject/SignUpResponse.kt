@@ -1,9 +1,9 @@
 package com.kdpark0723.communityCommon.model.user.dataTransferObject
 
-import com.kdpark0723.communityCommon.model.ResponseForm
+import com.kdpark0723.communityCommon.model.Response
 import com.kdpark0723.communityCommon.model.user.User
 
-class SignUpResponseForm() : ResponseForm("Success: You are signed in.") {
+class SignUpResponse() : Response("Success: You are signed up.") {
 
     var user: PublicUserInformation? = null
 
@@ -12,7 +12,7 @@ class SignUpResponseForm() : ResponseForm("Success: You are signed in.") {
     }
 
     override fun equals(other: Any?): Boolean {
-        if (other is SignUpResponseForm) {
+        if (other is SignUpResponse) {
             return this.message == other.message && this.user == other.user
         }
 

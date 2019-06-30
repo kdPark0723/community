@@ -2,12 +2,16 @@ package com.kdpark0723.communityCommon.test.services.auth
 
 import com.kdpark0723.communityCommon.exception.InvalidElementException
 import com.kdpark0723.communityCommon.exception.UserAlreadySignedException
+import com.kdpark0723.communityCommon.model.role.MockRoleDataAccess
+import com.kdpark0723.communityCommon.model.role.Role
+import com.kdpark0723.communityCommon.model.role.dataAccessObject.RoleDataAccess
 import com.kdpark0723.communityCommon.model.user.MockUserDataAccess
 import com.kdpark0723.communityCommon.model.user.UserFactory
 import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccess
 import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpElement
 import com.kdpark0723.communityCommon.service.auth.SignUpService
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.boot.test.context.SpringBootTest
@@ -16,6 +20,28 @@ import org.springframework.test.context.junit4.SpringRunner
 @RunWith(SpringRunner::class)
 @SpringBootTest
 class SignUpServiceTests {
+
+    private val userDataAccess: UserDataAccess = MockUserDataAccess()
+
+    private val roleDataAccess: RoleDataAccess = MockRoleDataAccess()
+
+    private val signUpService: SignUpService = SignUpService(userDataAccess, roleDataAccess)
+
+    private val factory = UserFactory()
+
+
+    @Before
+    fun setUp() {
+        val user = Role()
+        user.name = Role.Name.USER
+
+        val admin = Role()
+        admin.name = Role.Name.ADMIN
+
+        roleDataAccess.save(user)
+        roleDataAccess.save(admin)
+    }
+
     @Test
     fun signUpSuccess() {
         val user = factory.createDummyUser()
@@ -23,6 +49,7 @@ class SignUpServiceTests {
         signUpService.signUp(user)
 
         assertTrue(userDataAccess.existsByEmail(user.email))
+        assertTrue(user.roles.contains(roleDataAccess.findByName(Role.Name.USER)))
         userDataAccess.delete(user)
     }
 
@@ -61,8 +88,4 @@ class SignUpServiceTests {
 
         signUpService.checkValid(emailElement)
     }
-
-    private val userDataAccess: UserDataAccess = MockUserDataAccess()
-    private val signUpService: SignUpService = SignUpService(userDataAccess)
-    private val factory = UserFactory()
 }

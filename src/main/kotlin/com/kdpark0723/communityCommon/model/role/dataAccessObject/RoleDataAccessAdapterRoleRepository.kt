@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 
 @Repository
-class RoleDataAccessAdapterRoleRepository : RoleDAO, DataAccessAdapterCrudRepository<Role, Long, RoleRepository>() {
+class RoleDataAccessAdapterRoleRepository : RoleDataAccess, DataAccessAdapterCrudRepository<Role, Long, RoleRepository>() {
 
     @Autowired
     final override val repository: RoleRepository? = null

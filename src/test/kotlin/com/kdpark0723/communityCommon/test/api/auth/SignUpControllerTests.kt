@@ -3,7 +3,7 @@ package com.kdpark0723.communityCommon.test.api.auth
 import com.kdpark0723.communityCommon.AbstractTest
 import com.kdpark0723.communityCommon.model.user.UserFactory
 import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpRequest
-import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpResponseForm
+import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpResponse
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -46,10 +46,10 @@ class SignUpControllerTests : AbstractTest() {
         val status = result.response.status
         assertEquals(201, status)
 
-        val correctForm = SignUpResponseForm(request.toUser())
+        val correctForm = SignUpResponse(request.toUser())
 
         val content = result.response.contentAsString
-        val response = mapFromJson(content, SignUpResponseForm::class.java)
+        val response = mapFromJson(content, SignUpResponse::class.java)
 
         assertEquals(correctForm, response)
     }

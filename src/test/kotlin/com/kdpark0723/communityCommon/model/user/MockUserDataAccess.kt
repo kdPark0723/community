@@ -4,6 +4,8 @@ import com.kdpark0723.communityCommon.model.dataAccessObject.MockDataAccess
 import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccess
 
 class MockUserDataAccess : UserDataAccess, MockDataAccess<User, Long>() {
+    private var currentId: Long = 0
+
     override fun save(entity: User) {
         entity.id = currentId++
 
@@ -77,6 +79,4 @@ class MockUserDataAccess : UserDataAccess, MockDataAccess<User, Long>() {
     override fun getEntityKey(entity: User): Long {
         return entity.id!!
     }
-
-    private var currentId: Long = 0
 }

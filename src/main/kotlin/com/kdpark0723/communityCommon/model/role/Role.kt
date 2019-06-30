@@ -13,10 +13,10 @@ class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
+    var id: Long? = null
 
     @Enumerated(EnumType.STRING)
     @NaturalId
     @Column(length = 60)
-    val name: Name? = null
+    var name: Name? = null
 }

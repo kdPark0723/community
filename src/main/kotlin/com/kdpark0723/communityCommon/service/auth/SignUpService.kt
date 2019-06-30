@@ -1,34 +1,46 @@
 package com.kdpark0723.communityCommon.service.auth
 
+import com.kdpark0723.communityCommon.exception.AppException
 import com.kdpark0723.communityCommon.exception.InvalidElementException
 import com.kdpark0723.communityCommon.exception.UndefinedElementTypeException
 import com.kdpark0723.communityCommon.exception.UserAlreadySignedException
+import com.kdpark0723.communityCommon.model.role.Role
+import com.kdpark0723.communityCommon.model.role.dataAccessObject.RoleDataAccess
 import com.kdpark0723.communityCommon.model.user.User
 import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccess
 import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpElement
-import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpResponseForm
+import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpResponse
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 import javax.validation.Validation
 import javax.validation.ValidatorFactory
 
 @Service
-class SignUpService(private var userDataAccess: UserDataAccess) {
+class SignUpService @Autowired constructor(private val userDataAccess: UserDataAccess,
+                                           private val roleDataAccess: RoleDataAccess) {
 
     private val factory: ValidatorFactory = Validation.buildDefaultValidatorFactory()
 
-    private var validator = factory.validator
+    private val validator = factory.validator
 
     private val validUser: User = User(validName, validUserName, validEmail, validHashedPassword)
 
-    fun signUp(user: User): SignUpResponseForm {
+    @Throws(UserAlreadySignedException::class)
+    fun signUp(user: User): SignUpResponse {
         if (userDataAccess.existsByEmail(user.email))
             throw UserAlreadySignedException()
 
+        val role = roleDataAccess.findByName(Role.Name.USER) ?: throw AppException("User Role not set")
+
+        user.roles = Collections.singleton(role)
+
         userDataAccess.save(user)
 
-        return SignUpResponseForm(user)
+        return SignUpResponse(user)
     }
 
+    @Throws(InvalidElementException::class)
     fun checkValid(element: SignUpElement) {
         val checkedUser: User = getCanInvalidUser(element)
 
