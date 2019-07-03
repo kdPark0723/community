@@ -1,5 +1,6 @@
-package com.kdpark0723.communityCommon.security
+package com.kdpark0723.communityCommon.filter
 
+import com.kdpark0723.communityCommon.security.JwtTokenProvider
 import com.kdpark0723.communityCommon.service.user.CustomUserDetailsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken

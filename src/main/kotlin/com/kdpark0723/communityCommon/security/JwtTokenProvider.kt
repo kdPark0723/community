@@ -1,6 +1,6 @@
 package com.kdpark0723.communityCommon.security
 
-import com.kdpark0723.communityCommon.model.user.dataTransferObject.UserPrincipal
+import com.kdpark0723.communityCommon.model.user.User
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.MalformedJwtException
@@ -8,7 +8,6 @@ import io.jsonwebtoken.UnsupportedJwtException
 import io.jsonwebtoken.security.Keys
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
 import java.util.*
 import javax.crypto.SecretKey
@@ -22,16 +21,14 @@ class JwtTokenProvider {
     @Value("\${app.jwtExpirationInMs}")
     private val jwtExpirationInMs: Int = 0
 
-    fun generateToken(authentication: Authentication): String {
+    fun generateToken(user: User): String {
         val key = getSecretKey()
-
-        val userPrincipal = authentication.principal as UserPrincipal
 
         val now = Date()
         val expiryDate = Date(now.time + jwtExpirationInMs)
 
         return Jwts.builder()
-            .setSubject((userPrincipal.id!!).toString())
+            .setSubject((user.id!!).toString())
             .setIssuedAt(Date())
             .setExpiration(expiryDate)
             .signWith(key)

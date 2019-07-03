@@ -1,13 +1,13 @@
 package com.kdpark0723.communityCommon.service.auth
 
+import com.kdpark0723.communityCommon.exception.CantFindUserException
+import com.kdpark0723.communityCommon.exception.IncorrectUserInformationException
+import com.kdpark0723.communityCommon.model.user.User
 import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccess
-import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignInRequest
 import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignInResponse
 import com.kdpark0723.communityCommon.security.JwtTokenProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 
 
@@ -19,17 +19,14 @@ class SignInService @Autowired constructor(private val userDataAccess: UserDataA
     @Autowired
     val tokenProvider: JwtTokenProvider? = null
 
-    fun signIn(signInRequest: SignInRequest): SignInResponse {
-        val authentication = authenticationManager?.authenticate(
-            UsernamePasswordAuthenticationToken(
-                signInRequest.usernameOrEmail,
-                signInRequest.password
-            )
-        )
+    fun signIn(providedUser: User): SignInResponse {
+        val foundUser = userDataAccess.findByUsernameOrEmail(providedUser.username, providedUser.email)
+            ?: throw CantFindUserException()
 
-        SecurityContextHolder.getContext().authentication = authentication
+        if (foundUser.hashedPassword != providedUser.hashedPassword)
+            throw IncorrectUserInformationException()
 
-        val jwt = authentication?.let { tokenProvider?.generateToken(it) }
+        val jwt = tokenProvider?.generateToken(foundUser)
 
         return SignInResponse(jwt)
     }

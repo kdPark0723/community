@@ -3,7 +3,7 @@ import io.jsonwebtoken.security.Keys
 
 class JwtSecreteKeyGenerator {
 
-    fun generate(): ByteArray? {
+    fun generate(): ByteArray {
         val key = Keys.secretKeyFor(SignatureAlgorithm.HS512)
         return key.encoded
     }
@@ -11,5 +11,11 @@ class JwtSecreteKeyGenerator {
 
 fun main(args: Array<String>) {
     val keyGenerator = JwtSecreteKeyGenerator()
-    println("Secrete Key: " + keyGenerator.generate())
+    val key = keyGenerator.generate()
+
+    print("Secrete Key: ")
+    for (i in 0 until key.size)
+        print(key[i])
+    println()
+
 }

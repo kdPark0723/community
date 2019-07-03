@@ -1,7 +1,7 @@
 package com.kdpark0723.communityCommon.config
 
+import com.kdpark0723.communityCommon.filter.JwtAuthenticationFilter
 import com.kdpark0723.communityCommon.security.JwtAuthenticationEntryPoint
-import com.kdpark0723.communityCommon.security.JwtAuthenticationFilter
 import com.kdpark0723.communityCommon.service.user.CustomUserDetailsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean

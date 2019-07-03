@@ -31,7 +31,7 @@ class SignInController {
     }
 
     fun signInUncheckException(signInRequest: SignInRequest): ResponseEntity<SignInResponse> {
-        val signInResponse = signInService?.signIn(signInRequest)
+        val signInResponse = signInService?.signIn(signInRequest.toUser())
 
         return ResponseEntity(signInResponse, HttpStatus.OK)
     }
