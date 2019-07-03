@@ -22,7 +22,7 @@ class UserDTOTests {
         assertEquals(toUser.name, signUpUser.name)
         assertEquals(toUser.username, signUpUser.username)
         assertEquals(toUser.email, signUpUser.email)
-        assertEquals(toUser.hashedPassword, signUpUser.hashedPassword)
+        assertEquals(toUser.password, signUpUser.password)
     }
 
     @Test

@@ -10,11 +10,11 @@ abstract class DataAccessAdapterCrudRepository<Entity, Key, Repository : CrudRep
     protected abstract val repository: Repository?
 
     override fun delete(entity: Entity) {
-        repository?.delete(entity)
+        repository!!.delete(entity)
     }
 
     override fun findById(id: Key): Entity? {
-        val entity = repository?.findById(id)
+        val entity = repository!!.findById(id)
 
         return convertNullable(entity)
     }
@@ -32,10 +32,10 @@ abstract class DataAccessAdapterCrudRepository<Entity, Key, Repository : CrudRep
     }
 
     override fun save(entity: Entity) {
-        repository?.save(entity)
+        repository!!.save(entity)
     }
 
     override fun exists(id: Key): Boolean {
-        return repository?.existsById(id) ?: false
+        return repository!!.existsById(id)
     }
 }

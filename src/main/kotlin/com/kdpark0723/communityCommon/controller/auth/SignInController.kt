@@ -1,5 +1,6 @@
 package com.kdpark0723.communityCommon.controller.auth
 
+import com.kdpark0723.communityCommon.exception.AppException
 import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignInRequest
 import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignInResponse
 import com.kdpark0723.communityCommon.service.auth.SignInService
@@ -31,7 +32,7 @@ class SignInController {
     }
 
     fun signInUncheckException(signInRequest: SignInRequest): ResponseEntity<SignInResponse> {
-        val signInResponse = signInService?.signIn(signInRequest.toUser())
+        val signInResponse = signInService?.signIn(signInRequest.toUser()) ?: throw AppException("Service is not init")
 
         return ResponseEntity(signInResponse, HttpStatus.OK)
     }

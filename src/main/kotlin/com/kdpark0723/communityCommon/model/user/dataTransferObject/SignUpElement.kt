@@ -6,6 +6,6 @@ class SignUpElement(var value: String = "", var type: String = "") {
         NAME("name"),
         USERNAME("username"),
         EMAIL("email"),
-        HASHED_PASSWORD("hashedPassword")
+        PASSWORD("password")
     }
 }

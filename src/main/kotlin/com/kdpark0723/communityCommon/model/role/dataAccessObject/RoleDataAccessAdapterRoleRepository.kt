@@ -12,7 +12,7 @@ class RoleDataAccessAdapterRoleRepository : RoleDataAccess, DataAccessAdapterCru
     final override val repository: RoleRepository? = null
 
     override fun findByName(name: Role.Name): Role? {
-        val role = repository?.findByName(name)
+        val role = repository!!.findByName(name)
 
         return convertNullable(role)
     }

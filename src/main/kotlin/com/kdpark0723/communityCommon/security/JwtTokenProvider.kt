@@ -13,17 +13,12 @@ import java.util.*
 import javax.crypto.SecretKey
 
 @Component
-class JwtTokenProvider {
+class JwtTokenProvider(@Value("\${app.jwtSecret}") private val jwtSecret: String,
+                       @Value("\${app.jwtExpirationInMs}") private val jwtExpirationInMs: Int = 0) {
 
-    @Value("\${app.jwtSecret}")
-    private val jwtSecret: String? = null
-
-    @Value("\${app.jwtExpirationInMs}")
-    private val jwtExpirationInMs: Int = 0
+    private val secretKey: SecretKey = Keys.hmacShaKeyFor(jwtSecret.toByteArray())
 
     fun generateToken(user: User): String {
-        val key = getSecretKey()
-
         val now = Date()
         val expiryDate = Date(now.time + jwtExpirationInMs)
 
@@ -31,7 +26,7 @@ class JwtTokenProvider {
             .setSubject((user.id!!).toString())
             .setIssuedAt(Date())
             .setExpiration(expiryDate)
-            .signWith(key)
+            .signWith(secretKey)
             .compact()
     }
 
@@ -45,10 +40,8 @@ class JwtTokenProvider {
     }
 
     fun validateToken(authToken: String): Boolean {
-        val key = getSecretKey()
-
         try {
-            Jwts.parser().setSigningKey(key).parseClaimsJws(authToken)
+            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(authToken)
             return true
         } catch (ex: MalformedJwtException) {
             logger.error("Invalid JWT token")
@@ -61,10 +54,6 @@ class JwtTokenProvider {
         }
 
         return false
-    }
-
-    fun getSecretKey(): SecretKey {
-        return Keys.hmacShaKeyFor(jwtSecret?.toByteArray())!!
     }
 }
 

@@ -15,7 +15,7 @@ class UserFactory {
         signUpUser.name = name
         signUpUser.username = username
         signUpUser.email = email
-        signUpUser.hashedPassword = hashedPassword
+        signUpUser.password = hashedPassword
 
         return signUpUser
     }

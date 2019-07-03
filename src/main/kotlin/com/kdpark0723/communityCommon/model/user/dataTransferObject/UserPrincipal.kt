@@ -66,7 +66,7 @@ class UserPrincipal(val id: Long?,
                 user.name,
                 user.username,
                 user.email,
-                user.hashedPassword,
+                user.password,
                 authorities
             )
         }

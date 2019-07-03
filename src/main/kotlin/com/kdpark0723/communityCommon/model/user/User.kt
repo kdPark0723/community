@@ -15,7 +15,7 @@ class User(
     @field:NotBlank @field:Size(max = 40) var name: String,
     @field:NotBlank @field:Size(max = 15) var username: String,
     @NaturalId @field:NotBlank @field:Size(max = 40) @field:Email var email: String,
-    @field:NotBlank @field:Size(max = 100) @Column(name = "hashed_password") var hashedPassword: String) : DateAudit() {
+    @field:NotBlank @field:Size(max = 100) @Column(name = "hashed_password") var password: String) : DateAudit() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ class User(
     fun copy(name: String = this.name,
              username: String = this.username,
              email: String = this.email,
-             hashedPassword: String = this.hashedPassword): User {
-        return User(name, username, email, hashedPassword)
+             password: String = this.password): User {
+        return User(name, username, email, password)
     }
 }

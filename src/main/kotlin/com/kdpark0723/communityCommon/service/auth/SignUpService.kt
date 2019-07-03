@@ -58,8 +58,8 @@ class SignUpService @Autowired constructor(private val userDataAccess: UserDataA
                 validUser.copy(username = element.value)
             SignUpElement.Type.EMAIL.str ->
                 validUser.copy(email = element.value)
-            SignUpElement.Type.HASHED_PASSWORD.str ->
-                validUser.copy(hashedPassword = element.value)
+            SignUpElement.Type.PASSWORD.str ->
+                validUser.copy(password = element.value)
             else ->
                 throw UndefinedElementTypeException()
         }

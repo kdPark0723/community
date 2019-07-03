@@ -74,7 +74,7 @@ class SignUpServiceTests {
         val nameElement = SignUpElement(user.name, SignUpElement.Type.NAME.str)
         val usernameElement = SignUpElement(user.username, SignUpElement.Type.USERNAME.str)
         val emailElement = SignUpElement(user.email, SignUpElement.Type.EMAIL.str)
-        val hashedPasswordElement = SignUpElement(user.hashedPassword, SignUpElement.Type.HASHED_PASSWORD.str)
+        val hashedPasswordElement = SignUpElement(user.password, SignUpElement.Type.PASSWORD.str)
 
         signUpService.checkValid(nameElement)
         signUpService.checkValid(usernameElement)

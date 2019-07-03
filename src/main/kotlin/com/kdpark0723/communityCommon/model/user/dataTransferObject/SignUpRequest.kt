@@ -24,9 +24,9 @@ class SignUpRequest {
 
     @NotBlank
     @Size(max = 100)
-    var hashedPassword: String = ""
+    var password: String = ""
 
     fun toUser(): User {
-        return User(name, username, email, hashedPassword)
+        return User(name, username, email, password)
     }
 }
