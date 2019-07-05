@@ -1,4 +1,4 @@
-package com.kdpark0723.communityCommon.model.user.dataTransferObject
+package com.kdpark0723.communityCommon.model.user.dataTransfer
 
 class SignUpElement(var value: String = "", var type: String = "") {
 

@@ -32,7 +32,7 @@ class JwtTokenProvider(@Value("\${app.jwtSecret}") private val jwtSecret: String
 
     fun getUserIdFromJWT(token: String): Long? {
         val claims = Jwts.parser()
-            .setSigningKey(jwtSecret)
+            .setSigningKey(secretKey)
             .parseClaimsJws(token)
             .body
 

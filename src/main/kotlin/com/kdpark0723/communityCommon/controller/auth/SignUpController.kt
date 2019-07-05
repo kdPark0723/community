@@ -2,9 +2,9 @@ package com.kdpark0723.communityCommon.controller.auth
 
 import com.kdpark0723.communityCommon.exception.AppException
 import com.kdpark0723.communityCommon.model.Response
-import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpElement
-import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpRequest
-import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpResponse
+import com.kdpark0723.communityCommon.model.user.dataTransfer.SignUpElement
+import com.kdpark0723.communityCommon.model.user.dataTransfer.SignUpRequest
+import com.kdpark0723.communityCommon.model.user.dataTransfer.SignUpResponse
 import com.kdpark0723.communityCommon.service.auth.SignUpService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus

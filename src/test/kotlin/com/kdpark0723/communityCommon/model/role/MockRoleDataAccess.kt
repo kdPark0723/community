@@ -1,9 +1,10 @@
 package com.kdpark0723.communityCommon.model.role
 
-import com.kdpark0723.communityCommon.model.dataAccessObject.MockDataAccess
-import com.kdpark0723.communityCommon.model.role.dataAccessObject.RoleDataAccess
+import com.kdpark0723.communityCommon.model.dataAccess.MockDataAccess
+import com.kdpark0723.communityCommon.model.role.dataAccess.RoleDataAccess
 
 class MockRoleDataAccess : RoleDataAccess, MockDataAccess<Role, Long>() {
+
     private var currentId: Long = 0
 
     override fun save(entity: Role) {
@@ -24,6 +25,18 @@ class MockRoleDataAccess : RoleDataAccess, MockDataAccess<Role, Long>() {
         }
 
         return correctRole
+    }
+
+    override fun existsByName(name: Role.Name): Boolean {
+        this.repository.forEach { (_, role) ->
+            run {
+                if (role.name == name) {
+                    return false
+                }
+            }
+        }
+
+        return true
     }
 
     override fun getEntityKey(entity: Role): Long {

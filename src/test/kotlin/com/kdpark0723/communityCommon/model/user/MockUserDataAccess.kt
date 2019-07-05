@@ -1,7 +1,7 @@
 package com.kdpark0723.communityCommon.model.user
 
-import com.kdpark0723.communityCommon.model.dataAccessObject.MockDataAccess
-import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccess
+import com.kdpark0723.communityCommon.model.dataAccess.MockDataAccess
+import com.kdpark0723.communityCommon.model.user.dataAccess.UserDataAccess
 
 class MockUserDataAccess : UserDataAccess, MockDataAccess<User, Long>() {
     private var currentId: Long = 0
@@ -66,6 +66,16 @@ class MockUserDataAccess : UserDataAccess, MockDataAccess<User, Long>() {
         }
 
         return correctUser
+    }
+
+    override fun deleteByUsername(username: String): List<User> {
+        val correctUser: User? = this.findByUsername(username)
+
+        repository.remove(correctUser?.let { getEntityKey(it) })
+
+        if (correctUser != null)
+            return listOf(correctUser)
+        return listOf()
     }
 
     override fun existsByUsername(username: String): Boolean {

@@ -1,6 +1,6 @@
-package com.kdpark0723.communityCommon.model.user.dataAccessObject
+package com.kdpark0723.communityCommon.model.user.dataAccess
 
-import com.kdpark0723.communityCommon.model.dataAccessObject.DataAccessAdapterCrudRepository
+import com.kdpark0723.communityCommon.model.dataAccess.DataAccessAdapterCrudRepository
 import com.kdpark0723.communityCommon.model.user.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
@@ -25,6 +25,10 @@ class UserDataAccessAdapterUserRepository : UserDataAccess, DataAccessAdapterCru
 
     override fun findByUsername(username: String): User? {
         return this.convertNullable(this.repository!!.findByUsername(username))
+    }
+
+    override fun deleteByUsername(username: String): List<User> {
+        return this.repository!!.deleteByUsername(username)
     }
 
     override fun existsByUsername(username: String): Boolean {

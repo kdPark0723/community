@@ -1,4 +1,4 @@
-package com.kdpark0723.communityCommon.model.user.dataTransferObject
+package com.kdpark0723.communityCommon.model.user.dataTransfer
 
 import com.kdpark0723.communityCommon.model.user.User
 

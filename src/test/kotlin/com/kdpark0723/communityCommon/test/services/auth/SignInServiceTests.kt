@@ -4,11 +4,11 @@ import com.kdpark0723.communityCommon.exception.CantFindUserException
 import com.kdpark0723.communityCommon.exception.IncorrectUserInformationException
 import com.kdpark0723.communityCommon.model.role.MockRoleDataAccess
 import com.kdpark0723.communityCommon.model.role.Role
-import com.kdpark0723.communityCommon.model.role.dataAccessObject.RoleDataAccess
+import com.kdpark0723.communityCommon.model.role.dataAccess.RoleDataAccess
 import com.kdpark0723.communityCommon.model.user.MockUserDataAccess
 import com.kdpark0723.communityCommon.model.user.User
 import com.kdpark0723.communityCommon.model.user.UserFactory
-import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccess
+import com.kdpark0723.communityCommon.model.user.dataAccess.UserDataAccess
 import com.kdpark0723.communityCommon.security.JwtTokenProvider
 import com.kdpark0723.communityCommon.service.auth.SignInService
 import com.kdpark0723.communityCommon.service.auth.SignUpService

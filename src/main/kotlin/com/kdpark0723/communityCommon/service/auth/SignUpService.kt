@@ -5,11 +5,11 @@ import com.kdpark0723.communityCommon.exception.InvalidElementException
 import com.kdpark0723.communityCommon.exception.UndefinedElementTypeException
 import com.kdpark0723.communityCommon.exception.UserAlreadySignedException
 import com.kdpark0723.communityCommon.model.role.Role
-import com.kdpark0723.communityCommon.model.role.dataAccessObject.RoleDataAccess
+import com.kdpark0723.communityCommon.model.role.dataAccess.RoleDataAccess
 import com.kdpark0723.communityCommon.model.user.User
-import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccess
-import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpElement
-import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpResponse
+import com.kdpark0723.communityCommon.model.user.dataAccess.UserDataAccess
+import com.kdpark0723.communityCommon.model.user.dataTransfer.SignUpElement
+import com.kdpark0723.communityCommon.model.user.dataTransfer.SignUpResponse
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*

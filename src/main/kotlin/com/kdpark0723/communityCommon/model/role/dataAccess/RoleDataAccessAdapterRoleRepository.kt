@@ -1,6 +1,6 @@
-package com.kdpark0723.communityCommon.model.role.dataAccessObject
+package com.kdpark0723.communityCommon.model.role.dataAccess
 
-import com.kdpark0723.communityCommon.model.dataAccessObject.DataAccessAdapterCrudRepository
+import com.kdpark0723.communityCommon.model.dataAccess.DataAccessAdapterCrudRepository
 import com.kdpark0723.communityCommon.model.role.Role
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
@@ -15,6 +15,10 @@ class RoleDataAccessAdapterRoleRepository : RoleDataAccess, DataAccessAdapterCru
         val role = repository!!.findByName(name)
 
         return convertNullable(role)
+    }
+
+    override fun existsByName(name: Role.Name): Boolean {
+        return repository!!.existsByName(name)
     }
 
 }

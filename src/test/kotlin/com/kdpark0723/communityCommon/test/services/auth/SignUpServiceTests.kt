@@ -4,11 +4,11 @@ import com.kdpark0723.communityCommon.exception.InvalidElementException
 import com.kdpark0723.communityCommon.exception.UserAlreadySignedException
 import com.kdpark0723.communityCommon.model.role.MockRoleDataAccess
 import com.kdpark0723.communityCommon.model.role.Role
-import com.kdpark0723.communityCommon.model.role.dataAccessObject.RoleDataAccess
+import com.kdpark0723.communityCommon.model.role.dataAccess.RoleDataAccess
 import com.kdpark0723.communityCommon.model.user.MockUserDataAccess
 import com.kdpark0723.communityCommon.model.user.UserFactory
-import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccess
-import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpElement
+import com.kdpark0723.communityCommon.model.user.dataAccess.UserDataAccess
+import com.kdpark0723.communityCommon.model.user.dataTransfer.SignUpElement
 import com.kdpark0723.communityCommon.service.auth.SignUpService
 import org.junit.Assert.assertTrue
 import org.junit.Before

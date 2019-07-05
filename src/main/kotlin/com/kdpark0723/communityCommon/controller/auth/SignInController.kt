@@ -1,8 +1,8 @@
 package com.kdpark0723.communityCommon.controller.auth
 
 import com.kdpark0723.communityCommon.exception.AppException
-import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignInRequest
-import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignInResponse
+import com.kdpark0723.communityCommon.model.user.dataTransfer.SignInRequest
+import com.kdpark0723.communityCommon.model.user.dataTransfer.SignInResponse
 import com.kdpark0723.communityCommon.service.auth.SignInService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus

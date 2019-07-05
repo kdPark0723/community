@@ -1,4 +1,4 @@
-package com.kdpark0723.communityCommon.model.dataAccessObject
+package com.kdpark0723.communityCommon.model.dataAccess
 
 
 interface DataAccess<Entity, Key> {

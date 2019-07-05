@@ -1,33 +1,47 @@
 package com.kdpark0723.communityCommon.model.user
 
-import com.kdpark0723.communityCommon.model.user.dataTransferObject.SignUpRequest
+import com.kdpark0723.communityCommon.model.user.dataTransfer.SignInRequest
+import com.kdpark0723.communityCommon.model.user.dataTransfer.SignUpRequest
 
 class UserFactory {
-    fun createDummySignUpUser(name: String = validName + id,
-                              username: String = validUserName + id,
-                              email: String = "$validName$id@test.com",
-                              hashedPassword: String = validHashedPassword
+    fun createDummySignUpRequest(name: String = validName + id,
+                                 username: String = validUserName + id,
+                                 email: String = "$validName$id@test.com",
+                                 password: String = validHashedPassword
     ): SignUpRequest {
         id++
 
-        val signUpUser = SignUpRequest()
+        val signUpRequest = SignUpRequest()
 
-        signUpUser.name = name
-        signUpUser.username = username
-        signUpUser.email = email
-        signUpUser.password = hashedPassword
+        signUpRequest.name = name
+        signUpRequest.username = username
+        signUpRequest.email = email
+        signUpRequest.password = password
 
-        return signUpUser
+        return signUpRequest
+    }
+
+    fun createDummySignInRequest(usernameOrEmail: String = validName + id,
+                                 password: String = validHashedPassword
+    ): SignInRequest {
+        id++
+
+        val signInRequest = SignInRequest()
+
+        signInRequest.usernameOrEmail = usernameOrEmail
+        signInRequest.password = password
+
+        return signInRequest
     }
 
     fun createDummyUser(name: String = validName + id,
                         username: String = validUserName + id,
                         email: String = "$validName$id@test.com",
-                        hashedPassword: String = validHashedPassword
+                        password: String = validHashedPassword
     ): User {
         id++
 
-        return User(name, username, email, hashedPassword)
+        return User(name, username, email, password)
     }
 
     private val validName = "validName"

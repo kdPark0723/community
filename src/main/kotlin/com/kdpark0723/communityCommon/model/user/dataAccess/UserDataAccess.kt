@@ -1,6 +1,6 @@
-package com.kdpark0723.communityCommon.model.user.dataAccessObject
+package com.kdpark0723.communityCommon.model.user.dataAccess
 
-import com.kdpark0723.communityCommon.model.dataAccessObject.DataAccess
+import com.kdpark0723.communityCommon.model.dataAccess.DataAccess
 import com.kdpark0723.communityCommon.model.user.User
 
 interface UserDataAccess : DataAccess<User, Long> {
@@ -12,6 +12,8 @@ interface UserDataAccess : DataAccess<User, Long> {
     fun findByIdIn(userIds: List<Long>): List<User>
 
     fun findByUsername(username: String): User?
+
+    fun deleteByUsername(username: String): List<User>
 
     fun existsByUsername(username: String): Boolean
 

@@ -1,7 +1,7 @@
 package com.kdpark0723.communityCommon.service.user
 
-import com.kdpark0723.communityCommon.model.user.dataAccessObject.UserDataAccess
-import com.kdpark0723.communityCommon.model.user.dataTransferObject.UserPrincipal
+import com.kdpark0723.communityCommon.model.user.dataAccess.UserDataAccess
+import com.kdpark0723.communityCommon.model.user.dataTransfer.UserPrincipal
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
