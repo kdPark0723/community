@@ -1,7 +1,7 @@
 package com.kdpark0723.communityCommon.test.api.auth
 
-import com.kdpark0723.communityCommon.AbstractTest
-import com.kdpark0723.communityCommon.model.role.Role
+import com.kdpark0723.communityCommon.APITest
+import com.kdpark0723.communityCommon.SetUpRole
 import com.kdpark0723.communityCommon.model.role.dataAccess.RoleDataAccess
 import com.kdpark0723.communityCommon.model.user.User
 import com.kdpark0723.communityCommon.model.user.UserFactory
@@ -22,7 +22,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
-class SignUpControllerTests : AbstractTest() {
+class SignUpControllerTests : APITest() {
 
     private val factory = UserFactory()
 
@@ -38,17 +38,9 @@ class SignUpControllerTests : AbstractTest() {
     public override fun setUp() {
         super.setUp()
 
-        saveRole(Role.Name.USER)
-        saveRole(Role.Name.ADMIN)
-    }
+        val setUpRole = SetUpRole(roleDataAccess!!)
 
-    private fun saveRole(name: Role.Name) {
-        if (!roleDataAccess!!.existsByName(name)) {
-            val role = Role()
-            role.name = name
-
-            roleDataAccess.save(role)
-        }
+        setUpRole.setRole()
     }
 
     @After

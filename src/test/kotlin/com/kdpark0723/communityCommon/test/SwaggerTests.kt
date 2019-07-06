@@ -1,6 +1,6 @@
 package com.kdpark0723.communityCommon.test
 
-import com.kdpark0723.communityCommon.AbstractTest
+import com.kdpark0723.communityCommon.APITest
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
-class SwaggerTests : AbstractTest() {
+class SwaggerTests : APITest() {
     @Before
     public override fun setUp() {
         super.setUp()

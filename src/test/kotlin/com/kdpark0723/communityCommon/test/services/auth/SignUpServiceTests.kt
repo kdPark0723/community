@@ -1,5 +1,6 @@
 package com.kdpark0723.communityCommon.test.services.auth
 
+import com.kdpark0723.communityCommon.SetUpRole
 import com.kdpark0723.communityCommon.exception.InvalidElementException
 import com.kdpark0723.communityCommon.exception.UserAlreadySignedException
 import com.kdpark0723.communityCommon.model.role.MockRoleDataAccess
@@ -27,19 +28,13 @@ class SignUpServiceTests {
 
     private val signUpService: SignUpService = SignUpService(userDataAccess, roleDataAccess)
 
-    private val factory = UserFactory()
+    private val factory: UserFactory = UserFactory()
 
+    private val setUpRole: SetUpRole = SetUpRole(this.roleDataAccess)
 
     @Before
     fun setUp() {
-        val user = Role()
-        user.name = Role.Name.USER
-
-        val admin = Role()
-        admin.name = Role.Name.ADMIN
-
-        roleDataAccess.save(user)
-        roleDataAccess.save(admin)
+        setUpRole.setRole()
     }
 
     @Test

@@ -1,9 +1,9 @@
 package com.kdpark0723.communityCommon.test.services.auth
 
+import com.kdpark0723.communityCommon.SetUpRole
 import com.kdpark0723.communityCommon.exception.CantFindUserException
 import com.kdpark0723.communityCommon.exception.IncorrectUserInformationException
 import com.kdpark0723.communityCommon.model.role.MockRoleDataAccess
-import com.kdpark0723.communityCommon.model.role.Role
 import com.kdpark0723.communityCommon.model.role.dataAccess.RoleDataAccess
 import com.kdpark0723.communityCommon.model.user.MockUserDataAccess
 import com.kdpark0723.communityCommon.model.user.User
@@ -35,20 +35,15 @@ class SignInServiceTests {
 
     private val signInService: SignInService = SignInService(userDataAccess, tokenProvider)
 
-    private val factory = UserFactory()
+    private val factory: UserFactory = UserFactory()
 
     private val signedUpUser: User = factory.createDummyUser()
 
+    private val setUpRole: SetUpRole = SetUpRole(this.roleDataAccess)
+
     @Before
     fun setUp() {
-        val user = Role()
-        user.name = Role.Name.USER
-
-        val admin = Role()
-        admin.name = Role.Name.ADMIN
-
-        roleDataAccess.save(user)
-        roleDataAccess.save(admin)
+        setUpRole.setRole()
 
         signUpService.signUp(signedUpUser)
     }
@@ -56,6 +51,7 @@ class SignInServiceTests {
     @Test
     fun signInSuccess() {
         val response = signInService.signIn(signedUpUser)
+
         assertTrue(response.accessToken != null)
     }
 

@@ -17,7 +17,7 @@ import java.io.IOException
 @RunWith(SpringJUnit4ClassRunner::class)
 @SpringBootTest(classes = [CommunityCommonApplication::class])
 @WebAppConfiguration
-abstract class AbstractTest {
+abstract class APITest {
 
     protected lateinit var mvc: MockMvc
 

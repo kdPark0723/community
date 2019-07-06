@@ -31,12 +31,12 @@ class MockRoleDataAccess : RoleDataAccess, MockDataAccess<Role, Long>() {
         this.repository.forEach { (_, role) ->
             run {
                 if (role.name == name) {
-                    return false
+                    return true
                 }
             }
         }
 
-        return true
+        return false
     }
 
     override fun getEntityKey(entity: Role): Long {
