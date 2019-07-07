@@ -5,7 +5,7 @@ import com.kdpark0723.communityCommon.model.user.User
 
 class SignUpResponse() : Response("Success: You are signed up.") {
 
-    var user: PublicUserInformation? = null
+    lateinit var user: PublicUserInformation
 
     constructor(user: User) : this() {
         this.user = PublicUserInformation(user)
@@ -20,6 +20,6 @@ class SignUpResponse() : Response("Success: You are signed up.") {
     }
 
     override fun hashCode(): Int {
-        return user?.hashCode() ?: 0
+        return user.hashCode()
     }
 }

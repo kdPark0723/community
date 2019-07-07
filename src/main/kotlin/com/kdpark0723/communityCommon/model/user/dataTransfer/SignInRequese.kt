@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank
 
 
 class SignInRequest {
+
     @NotBlank
     var usernameOrEmail: String = ""
 
