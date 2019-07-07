@@ -11,7 +11,7 @@ import javax.validation.constraints.Size
 
 @Entity
 @Table(name = "users")
-class User(
+data class User(
     @field:NotBlank @field:Size(max = 40) var name: String,
     @field:NotBlank @field:Size(max = 15) var username: String,
     @NaturalId @field:NotBlank @field:Size(max = 40) @field:Email var email: String,
@@ -24,11 +24,4 @@ class User(
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles", joinColumns = [JoinColumn(name = "user_id")], inverseJoinColumns = [JoinColumn(name = "role_id")])
     var roles: Set<Role> = HashSet()
-
-    fun copy(name: String = this.name,
-             username: String = this.username,
-             email: String = this.email,
-             password: String = this.password): User {
-        return User(name, username, email, password)
-    }
 }

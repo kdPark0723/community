@@ -16,11 +16,9 @@ class MockRoleDataAccess : RoleDataAccess, MockDataAccess<Role, Long>() {
     override fun findByName(name: Role.Name): Role? {
         var correctRole: Role? = null
 
-        this.repository.forEach { (_, role) ->
-            run {
-                if (role.name == name) {
-                    correctRole = role
-                }
+        this.repository.forEach {
+            if (it.value.name == name) {
+                correctRole = it.value
             }
         }
 
@@ -28,11 +26,9 @@ class MockRoleDataAccess : RoleDataAccess, MockDataAccess<Role, Long>() {
     }
 
     override fun existsByName(name: Role.Name): Boolean {
-        this.repository.forEach { (_, role) ->
-            run {
-                if (role.name == name) {
-                    return true
-                }
+        this.repository.forEach {
+            if (it.value.name == name) {
+                return true
             }
         }
 

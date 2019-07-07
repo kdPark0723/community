@@ -15,11 +15,9 @@ class MockUserDataAccess : UserDataAccess, MockDataAccess<User, Long>() {
     override fun findByEmail(email: String): User? {
         var correctUser: User? = null
 
-        this.repository.forEach { (_, user) ->
-            run {
-                if (user.email == email) {
-                    correctUser = user
-                }
+        this.repository.forEach {
+            if (it.value.email == email) {
+                correctUser = it.value
             }
         }
 
@@ -29,11 +27,21 @@ class MockUserDataAccess : UserDataAccess, MockDataAccess<User, Long>() {
     override fun findByUsernameOrEmail(username: String, email: String): User? {
         var correctUser: User? = null
 
-        this.repository.forEach { (_, user) ->
-            run {
-                if (user.username == username || user.email == email) {
-                    correctUser = user
-                }
+        this.repository.forEach {
+            if (it.value.username == username || it.value.email == email) {
+                correctUser = it.value
+            }
+        }
+
+        return correctUser
+    }
+
+    override fun findByUsername(username: String): User? {
+        var correctUser: User? = null
+
+        this.repository.forEach {
+            if (it.value.username == username) {
+                correctUser = it.value
             }
         }
 
@@ -43,29 +51,13 @@ class MockUserDataAccess : UserDataAccess, MockDataAccess<User, Long>() {
     override fun findByIdIn(userIds: List<Long>): List<User> {
         val correctUsers: MutableList<User> = mutableListOf()
 
-        this.repository.forEach { (id, user) ->
-            run {
-                if (userIds.contains(id)) {
-                    correctUsers.plus(user)
-                }
+        this.repository.forEach {
+            if (userIds.contains(it.key)) {
+                correctUsers.plus(it.value)
             }
         }
 
         return correctUsers
-    }
-
-    override fun findByUsername(username: String): User? {
-        var correctUser: User? = null
-
-        this.repository.forEach { (_, user) ->
-            run {
-                if (user.username == username) {
-                    correctUser = user
-                }
-            }
-        }
-
-        return correctUser
     }
 
     override fun deleteByUsername(username: String): List<User> {

@@ -34,19 +34,21 @@ class SignUpControllerTests : APITest() {
     @Autowired
     private val roleDataAccess: RoleDataAccess? = null
 
+    private var setUpRole: SetUpRole? = null
+
     @Before
     public override fun setUp() {
         super.setUp()
 
-        val setUpRole = SetUpRole(roleDataAccess!!)
+        setUpRole = SetUpRole(roleDataAccess!!)
 
-        setUpRole.setRole()
+        setUpRole!!.setRole()
     }
 
     @After
     fun close() {
-        for (user in users) {
-            userDataAccess?.deleteByUsername(user.username)
+        users.forEach {
+            userDataAccess?.deleteByUsername(it.username)
         }
     }
 
