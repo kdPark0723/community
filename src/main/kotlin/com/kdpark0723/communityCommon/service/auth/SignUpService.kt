@@ -16,6 +16,12 @@ import java.util.*
 import javax.validation.Validation
 import javax.validation.ValidatorFactory
 
+
+private const val validName = "valid Name"
+private const val validUserName = "validUserName"
+private const val validEmail = "validEmail@community.com"
+private const val validHashedPassword = "1a27b6b03d41de5ff0f30c136d14d8b59c079ea54b1d9b41fd4c2c0178a7f259"
+
 @Service
 class SignUpService @Autowired constructor(private val userDataAccess: UserDataAccess,
                                            private val roleDataAccess: RoleDataAccess) {
@@ -65,8 +71,3 @@ class SignUpService @Autowired constructor(private val userDataAccess: UserDataA
         }
     }
 }
-
-private const val validName = "valid Name"
-private const val validUserName = "validUserName"
-private const val validEmail = "validEmail@community.com"
-private const val validHashedPassword = "1a27b6b03d41de5ff0f30c136d14d8b59c079ea54b1d9b41fd4c2c0178a7f259"
