@@ -15,7 +15,8 @@ data class User(
     @field:NotBlank @field:Size(max = 40) var name: String,
     @field:NotBlank @field:Size(max = 15) var username: String,
     @NaturalId @field:NotBlank @field:Size(max = 40) @field:Email var email: String,
-    @field:NotBlank @field:Size(max = 100) @Column(name = "hashed_password") var password: String) : DateAudit() {
+    @field:NotBlank @field:Size(max = 100) @Column(name = "hashed_password") var password: String
+) : DateAudit() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

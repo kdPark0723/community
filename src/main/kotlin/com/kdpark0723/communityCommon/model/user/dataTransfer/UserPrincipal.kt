@@ -6,15 +6,16 @@ import com.kdpark0723.communityCommon.model.user.User
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
-import java.util.*
 import java.util.stream.Collectors
 
-class UserPrincipal(val id: Long?,
-                    val name: String,
-                    private val username: String,
-                    @field:JsonIgnore val email: String,
-                    @field:JsonIgnore private val password: String,
-                    private val authorities: Collection<GrantedAuthority>) : UserDetails {
+data class UserPrincipal(
+    val id: Long?,
+    val name: String,
+    private val username: String,
+    @field:JsonIgnore val email: String,
+    @field:JsonIgnore private val password: String,
+    private val authorities: Collection<GrantedAuthority>
+) : UserDetails {
 
     override fun getUsername(): String {
         return username
@@ -42,17 +43,6 @@ class UserPrincipal(val id: Long?,
 
     override fun isEnabled(): Boolean {
         return true
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || javaClass != other.javaClass) return false
-        val that = other as UserPrincipal?
-        return id == that!!.id
-    }
-
-    override fun hashCode(): Int {
-        return Objects.hash(id)
     }
 
     companion object {
