@@ -5,9 +5,9 @@ import com.kdpark0723.communityCommon.exception.InvalidElementException
 import com.kdpark0723.communityCommon.exception.UndefinedElementTypeException
 import com.kdpark0723.communityCommon.exception.UserAlreadySignedException
 import com.kdpark0723.communityCommon.model.role.Role
-import com.kdpark0723.communityCommon.model.role.dataAccess.RoleDataAccess
+import com.kdpark0723.communityCommon.model.role.dataAccess.RoleDataAccessor
 import com.kdpark0723.communityCommon.model.user.User
-import com.kdpark0723.communityCommon.model.user.dataAccess.UserDataAccess
+import com.kdpark0723.communityCommon.model.user.dataAccess.UserDataAccessor
 import com.kdpark0723.communityCommon.model.user.dataTransfer.SignUpElement
 import com.kdpark0723.communityCommon.model.user.dataTransfer.SignUpResponse
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,8 +23,8 @@ private const val validEmail = "validEmail@community.com"
 private const val validHashedPassword = "1a27b6b03d41de5ff0f30c136d14d8b59c079ea54b1d9b41fd4c2c0178a7f259"
 
 @Service
-class SignUpService @Autowired constructor(private val userDataAccess: UserDataAccess,
-                                           private val roleDataAccess: RoleDataAccess) {
+class SignUpService @Autowired constructor(private val userDataAccess: UserDataAccessor,
+                                           private val roleDataAccess: RoleDataAccessor) {
 
     private val factory: ValidatorFactory = Validation.buildDefaultValidatorFactory()
 

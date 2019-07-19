@@ -3,12 +3,12 @@ package com.kdpark0723.communityCommon.test.services.auth
 import com.kdpark0723.communityCommon.SetUpRole
 import com.kdpark0723.communityCommon.exception.InvalidElementException
 import com.kdpark0723.communityCommon.exception.UserAlreadySignedException
-import com.kdpark0723.communityCommon.model.role.MockRoleDataAccess
+import com.kdpark0723.communityCommon.model.role.MockRoleDataAccessor
 import com.kdpark0723.communityCommon.model.role.Role
-import com.kdpark0723.communityCommon.model.role.dataAccess.RoleDataAccess
-import com.kdpark0723.communityCommon.model.user.MockUserDataAccess
+import com.kdpark0723.communityCommon.model.role.dataAccess.RoleDataAccessor
+import com.kdpark0723.communityCommon.model.user.MockUserDataAccessor
 import com.kdpark0723.communityCommon.model.user.UserFactory
-import com.kdpark0723.communityCommon.model.user.dataAccess.UserDataAccess
+import com.kdpark0723.communityCommon.model.user.dataAccess.UserDataAccessor
 import com.kdpark0723.communityCommon.model.user.dataTransfer.SignUpElement
 import com.kdpark0723.communityCommon.service.auth.SignUpService
 import org.junit.Assert.assertTrue
@@ -22,9 +22,9 @@ import org.springframework.test.context.junit4.SpringRunner
 @SpringBootTest
 class SignUpServiceTests {
 
-    private val userDataAccess: UserDataAccess = MockUserDataAccess()
+    private val userDataAccess: UserDataAccessor = MockUserDataAccessor()
 
-    private val roleDataAccess: RoleDataAccess = MockRoleDataAccess()
+    private val roleDataAccess: RoleDataAccessor = MockRoleDataAccessor()
 
     private val signUpService: SignUpService = SignUpService(userDataAccess, roleDataAccess)
 

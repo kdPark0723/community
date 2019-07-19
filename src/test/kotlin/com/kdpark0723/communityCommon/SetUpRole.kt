@@ -1,9 +1,9 @@
 package com.kdpark0723.communityCommon
 
 import com.kdpark0723.communityCommon.model.role.Role
-import com.kdpark0723.communityCommon.model.role.dataAccess.RoleDataAccess
+import com.kdpark0723.communityCommon.model.role.dataAccess.RoleDataAccessor
 
-class SetUpRole(private val roleDataAccess: RoleDataAccess) {
+class SetUpRole(private val roleDataAccess: RoleDataAccessor) {
 
     fun setRole() {
         saveRole(Role.Name.USER)

@@ -1,12 +1,12 @@
 package com.kdpark0723.communityCommon.model.user.dataAccess
 
-import com.kdpark0723.communityCommon.model.dataAccess.DataAccessAdapterCrudRepository
+import com.kdpark0723.communityCommon.model.dataAccess.DataAccessorAdapterCrudRepository
 import com.kdpark0723.communityCommon.model.user.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 
 @Repository
-class UserDataAccessAdapterUserRepository : UserDataAccess, DataAccessAdapterCrudRepository<User, Long, UserRepository>() {
+class UserDataAccessorAdapterUserRepository : UserDataAccessor, DataAccessorAdapterCrudRepository<User, Long, UserRepository>() {
 
     @Autowired
     final override val repository: UserRepository? = null

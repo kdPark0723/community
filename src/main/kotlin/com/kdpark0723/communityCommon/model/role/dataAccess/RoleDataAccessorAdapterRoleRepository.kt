@@ -1,12 +1,12 @@
 package com.kdpark0723.communityCommon.model.role.dataAccess
 
-import com.kdpark0723.communityCommon.model.dataAccess.DataAccessAdapterCrudRepository
+import com.kdpark0723.communityCommon.model.dataAccess.DataAccessorAdapterCrudRepository
 import com.kdpark0723.communityCommon.model.role.Role
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 
 @Repository
-class RoleDataAccessAdapterRoleRepository : RoleDataAccess, DataAccessAdapterCrudRepository<Role, Long, RoleRepository>() {
+class RoleDataAccessorAdapterRoleRepository : RoleDataAccessor, DataAccessorAdapterCrudRepository<Role, Long, RoleRepository>() {
 
     @Autowired
     final override val repository: RoleRepository? = null

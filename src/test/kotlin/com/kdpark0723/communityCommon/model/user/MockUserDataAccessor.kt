@@ -1,9 +1,9 @@
 package com.kdpark0723.communityCommon.model.user
 
-import com.kdpark0723.communityCommon.model.dataAccess.MockDataAccess
-import com.kdpark0723.communityCommon.model.user.dataAccess.UserDataAccess
+import com.kdpark0723.communityCommon.model.dataAccess.MockDataAccessor
+import com.kdpark0723.communityCommon.model.user.dataAccess.UserDataAccessor
 
-class MockUserDataAccess : UserDataAccess, MockDataAccess<User, Long>() {
+class MockUserDataAccessor : UserDataAccessor, MockDataAccessor<User, Long>() {
     private var currentId: Long = 0
 
     override fun save(entity: User) {

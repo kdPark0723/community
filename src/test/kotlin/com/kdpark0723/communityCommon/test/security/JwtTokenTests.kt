@@ -1,8 +1,8 @@
 package com.kdpark0723.communityCommon.test.security
 
-import com.kdpark0723.communityCommon.model.user.MockUserDataAccess
+import com.kdpark0723.communityCommon.model.user.MockUserDataAccessor
 import com.kdpark0723.communityCommon.model.user.UserFactory
-import com.kdpark0723.communityCommon.model.user.dataAccess.UserDataAccess
+import com.kdpark0723.communityCommon.model.user.dataAccess.UserDataAccessor
 import com.kdpark0723.communityCommon.security.JwtTokenProvider
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -17,7 +17,7 @@ class JwtTokenTests {
 
     private val factory = UserFactory()
 
-    private val userDataAccess: UserDataAccess = MockUserDataAccess()
+    private val userDataAccess: UserDataAccessor = MockUserDataAccessor()
 
     @Autowired
     private val tokenProvider: JwtTokenProvider? = null

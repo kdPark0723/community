@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-abstract class DataAccessAdapterCrudRepository<Entity, Key, Repository : CrudRepository<Entity, Key>> : DataAccess<Entity, Key> {
+abstract class DataAccessorAdapterCrudRepository<Entity, Key, Repository : CrudRepository<Entity, Key>> : DataAccessor<Entity, Key> {
 
     protected abstract val repository: Repository?
 

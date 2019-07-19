@@ -1,6 +1,6 @@
 package com.kdpark0723.communityCommon.model.dataAccess
 
-abstract class MockDataAccess<Entity, Key> : DataAccess<Entity, Key> {
+abstract class MockDataAccessor<Entity, Key> : DataAccessor<Entity, Key> {
     override fun delete(entity: Entity) {
         repository.remove(getEntityKey(entity))
     }

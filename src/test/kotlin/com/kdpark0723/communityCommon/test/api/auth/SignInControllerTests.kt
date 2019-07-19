@@ -2,10 +2,10 @@ package com.kdpark0723.communityCommon.test.api.auth
 
 import com.kdpark0723.communityCommon.APITest
 import com.kdpark0723.communityCommon.SetUpRole
-import com.kdpark0723.communityCommon.model.role.dataAccess.RoleDataAccess
+import com.kdpark0723.communityCommon.model.role.dataAccess.RoleDataAccessor
 import com.kdpark0723.communityCommon.model.user.User
 import com.kdpark0723.communityCommon.model.user.UserFactory
-import com.kdpark0723.communityCommon.model.user.dataAccess.UserDataAccess
+import com.kdpark0723.communityCommon.model.user.dataAccess.UserDataAccessor
 import com.kdpark0723.communityCommon.model.user.dataTransfer.SignInRequest
 import com.kdpark0723.communityCommon.model.user.dataTransfer.SignInResponse
 import com.kdpark0723.communityCommon.model.user.dataTransfer.SignUpRequest
@@ -28,10 +28,10 @@ class SignInControllerTests : APITest() {
     private val factory = UserFactory()
 
     @Autowired
-    private val userDataAccess: UserDataAccess? = null
+    private val userDataAccess: UserDataAccessor? = null
 
     @Autowired
-    private val roleDataAccess: RoleDataAccess? = null
+    private val roleDataAccess: RoleDataAccessor? = null
 
     private var setUpRole: SetUpRole? = null
 

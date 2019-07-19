@@ -1,9 +1,9 @@
 package com.kdpark0723.communityCommon.model.user.dataAccess
 
-import com.kdpark0723.communityCommon.model.dataAccess.DataAccess
+import com.kdpark0723.communityCommon.model.dataAccess.DataAccessor
 import com.kdpark0723.communityCommon.model.user.User
 
-interface UserDataAccess : DataAccess<User, Long> {
+interface UserDataAccessor : DataAccessor<User, Long> {
 
     fun findByEmail(email: String): User?
 

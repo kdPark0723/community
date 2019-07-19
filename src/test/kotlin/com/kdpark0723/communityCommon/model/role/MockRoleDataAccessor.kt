@@ -1,9 +1,9 @@
 package com.kdpark0723.communityCommon.model.role
 
-import com.kdpark0723.communityCommon.model.dataAccess.MockDataAccess
-import com.kdpark0723.communityCommon.model.role.dataAccess.RoleDataAccess
+import com.kdpark0723.communityCommon.model.dataAccess.MockDataAccessor
+import com.kdpark0723.communityCommon.model.role.dataAccess.RoleDataAccessor
 
-class MockRoleDataAccess : RoleDataAccess, MockDataAccess<Role, Long>() {
+class MockRoleDataAccessor : RoleDataAccessor, MockDataAccessor<Role, Long>() {
 
     private var currentId: Long = 0
 
