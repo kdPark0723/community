@@ -1,4 +1,4 @@
-package com.kdpark0723.communityCommon.test.models.user
+package com.kdpark0723.communityCommon.test.model.user
 
 import com.kdpark0723.communityCommon.model.user.UserFactory
 import com.kdpark0723.communityCommon.model.user.dataTransfer.SignUpResponse
@@ -31,9 +31,9 @@ class UserDataTransferTests {
         val response = SignUpResponse(user)
 
         assertEquals(response.message, "Success: You are signed up.")
-        assertEquals(response.user?.name, user.name)
-        assertEquals(response.user?.username, user.username)
-        assertEquals(response.user?.email, user.email)
+        assertEquals(response.user.name, user.name)
+        assertEquals(response.user.username, user.username)
+        assertEquals(response.user.email, user.email)
     }
 
     @Test

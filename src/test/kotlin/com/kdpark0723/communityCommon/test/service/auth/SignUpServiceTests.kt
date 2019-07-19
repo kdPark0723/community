@@ -1,4 +1,4 @@
-package com.kdpark0723.communityCommon.test.services.auth
+package com.kdpark0723.communityCommon.test.service.auth
 
 import com.kdpark0723.communityCommon.SetUpRole
 import com.kdpark0723.communityCommon.exception.InvalidElementException

@@ -35,6 +35,9 @@ dependencies {
 
     implementation("io.jsonwebtoken:jjwt-api:0.10.5")
 
+    implementation("io.projectreactor:reactor-core:3.2.10.RELEASE")
+    testImplementation("io.projectreactor:reactor-test:3.2.10.RELEASE")
+
     runtime("io.jsonwebtoken:jjwt-impl:0.10.5")
     runtime("io.jsonwebtoken:jjwt-jackson:0.10.5")
 
