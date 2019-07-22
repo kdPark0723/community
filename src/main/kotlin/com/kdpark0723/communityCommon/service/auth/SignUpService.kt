@@ -34,7 +34,7 @@ class SignUpService @Autowired constructor(private val userDataAccess: UserDataA
 
     @Throws(UserAlreadySignedException::class)
     fun signUp(user: User): SignUpResponse {
-        if (userDataAccess.existsByEmail(user.email) || userDataAccess.existsByUsername(user.username))
+        if (userDataAccess.existsByUsernameOrEmail(user.username, user.email))
             throw UserAlreadySignedException()
 
         val role = roleDataAccess.findByName(Role.Name.USER) ?: throw AppException("User Role not set")

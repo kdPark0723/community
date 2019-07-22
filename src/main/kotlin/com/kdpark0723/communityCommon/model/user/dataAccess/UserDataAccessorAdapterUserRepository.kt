@@ -31,6 +31,10 @@ class UserDataAccessorAdapterUserRepository : UserDataAccessor, DataAccessorAdap
         return this.repository!!.deleteByUsername(username)
     }
 
+    override fun existsByUsernameOrEmail(username: String, email: String): Boolean {
+        return this.repository!!.existsByUsernameOrEmail(username, email) ?: false
+    }
+
     override fun existsByUsername(username: String): Boolean {
         return this.repository!!.existsByUsername(username) ?: false
     }

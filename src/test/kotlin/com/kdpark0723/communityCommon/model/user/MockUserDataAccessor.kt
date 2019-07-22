@@ -63,11 +63,15 @@ class MockUserDataAccessor : UserDataAccessor, MockDataAccessor<User, Long>() {
     override fun deleteByUsername(username: String): List<User> {
         val correctUser: User? = this.findByUsername(username)
 
-        repository.remove(correctUser?.let { getEntityKey(it) })
+        repository.remove(correctUser.let { getEntityKey(it) })
 
         if (correctUser != null)
             return listOf(correctUser)
         return listOf()
+    }
+
+    override fun existsByUsernameOrEmail(username: String, email: String): Boolean {
+        return existsByUsername(username) || existsByEmail(email)
     }
 
     override fun existsByUsername(username: String): Boolean {

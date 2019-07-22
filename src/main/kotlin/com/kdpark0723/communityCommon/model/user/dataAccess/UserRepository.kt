@@ -20,6 +20,8 @@ interface UserRepository : JpaRepository<User, Long> {
     @Transactional
     fun deleteByUsername(username: String): List<User>
 
+    fun existsByUsernameOrEmail(username: String, email: String): Boolean?
+
     fun existsByUsername(username: String): Boolean?
 
     fun existsByEmail(email: String): Boolean?
